@@ -30,6 +30,8 @@ public class Async {
 	}
 	
 	
-	public static Promise<ResultType> promise(Operation)
+	public static <InputType, ResultType> Promise<ResultType> promise(Operation<InputType, ResultType> operation) {
+		
+	}
 
 }
