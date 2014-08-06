@@ -18,7 +18,7 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 	private ResultType resultCache;
 	private Boolean isRequesting;
 	private Throwable failureCache;
-	private Closure<Throwable> exceptionCatcher;
+	private List<Closure<Throwable>> exceptionCatchers;
 
 	private final void requestResult(final ValueCallback<ResultType> callback) {
 
@@ -137,8 +137,11 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
 	@Override
 	public void catchExceptions(Closure<Throwable> closure) {
-		// TODO Auto-generated method stub
-
+		assert !this.resultCache && !this.failureCache;
+		
+		synchronized (exceptionCatchers) {
+			exceptionCatchers.add(closure);
+		}
 	}
 
 	@Override
@@ -147,7 +150,6 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
 			@Override
 			public void onFailure(Throwable t) {
-				// TODO Auto-generated method stub
 				
 			}
 
@@ -164,7 +166,7 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 		this.deferredCalls = new LinkedList<ValueCallback<ResultType>>();
 		this.resultCache = null;
 		this.failureCache = null;
-		this.exceptionCatcher = null;
+		this.exceptionCatchers = new LinkedList<Closure<Throwable>>();
 		this.isRequesting = false;
 
 	}
