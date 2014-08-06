@@ -150,8 +150,12 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
 			@Override
 			public void onFailure(Throwable t) {
+				final ArrayList<Closure<Throwable>> catchers;
 				synchronized (exceptionCatchers) {
-					ArrayList<Closure<Throwable>> catchers = new ArrayList<Closure<Throwable>>(exceptionCatchers);
+					catchers = new ArrayList<Closure<Throwable>>(exceptionCatchers);
+				}
+				for (Closure<Throwable> exceptionCatcher: catchers) {
+					exceptionCatcher.apply(t);
 				}
 			}
 
