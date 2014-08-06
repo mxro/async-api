@@ -5,7 +5,7 @@
  ******************************************************************************/
 package de.mxro.async.callbacks;
 
-public interface SimpleCallback<GError> {
+public interface SimpleCallback extends FailureCallback {
 	public void onSuccess();
-	public void onFailure(GError message);
+
 }
