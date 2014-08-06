@@ -25,7 +25,9 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 				synchronized (isRequesting) {
 
 					if (isRequesting) {
-						deferredCalls.add(callback);
+						synchronized (deferredCalls) {
+						   deferredCalls.add(callback);
+						}
 						return;
 					} else {
 						isRequesting = true;
@@ -41,7 +43,18 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 			return;
 		}
 		
-		
+		asyncPromise.get(new ValueCallback<ResultType>() {
+
+			@Override
+			public void onFailure(Throwable t) {
+				
+			}
+
+			@Override
+			public void onSuccess(ResultType value) {
+				
+			}
+		});
 
 	}
 
