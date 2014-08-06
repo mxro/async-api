@@ -1,11 +1,13 @@
 package de.mxro.async.internal;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import de.mxro.async.AsyncPromise;
 import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ValueCallback;
+import de.mxro.fn.Closure;
 
 public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
@@ -108,4 +110,40 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
 	}
 
+	@Override
+	public ResultType get() {
+		get(new Closure<ResultType>() {
+
+			@Override
+			public void apply(ResultType o) {
+				
+			}
+		});
+		return this.resultCache;
+	}
+
+	@Override
+	public void catchExceptions(Closure<Throwable> closure) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void get(Closure<ResultType> closure) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public PromiseImpl(AsyncPromise<ResultType> asyncPromise) {
+		super();
+		this.asyncPromise = asyncPromise;
+		this.deferredCalls = new LinkedList<ValueCallback<ResultType>>();
+		this.resultCache = null;
+		this.failureCache = null;
+		this.isRequesting = false;
+		
+	}
+
+	
+	
 }
