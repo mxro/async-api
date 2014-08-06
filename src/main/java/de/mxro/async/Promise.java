@@ -1,5 +1,5 @@
 package de.mxro.async;
 
-public interface Promise {
+public interface Promise<ResultType> {
 
 }

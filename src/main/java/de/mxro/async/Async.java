@@ -29,5 +29,7 @@ public class Async {
 
 	}
 	
+	
+	public static Promise<ResultType> promise(Operation)
 
 }
