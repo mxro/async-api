@@ -18,6 +18,15 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 	
 	private final void requestResult(ValueCallback<ResultType> callback) {
 		
+		final boolean triggerOnFailure;
+		synchronized (failureCache) {
+			triggerOnFailure = failureCache != null;
+		}
+		if (triggerOnFailure) {
+			callback.onFailure(failureCache);
+			return;
+		}
+		
 		final boolean triggerOnSuccess;
 		synchronized (resultCache) {
 			triggerOnSuccess = resultCache != null;
