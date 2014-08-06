@@ -24,8 +24,8 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>de.mxro.gtwutils</groupId>
-			<artifactId>mxGWTUtils</artifactId>
+			<groupId>de.mxro.fn</groupId>
+			<artifactId>fn-api</artifactId>
 			<version>[0.0.1,)</version>
 		</dependency>
 
@@ -162,7 +162,7 @@
 				</excludes>
 			</resource>
 
-		
+
 
 		</resources>
 
