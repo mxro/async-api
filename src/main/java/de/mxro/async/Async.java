@@ -4,13 +4,18 @@ import java.util.List;
 
 import de.mxro.async.callbacks.ListCallback;
 import de.mxro.async.flow.CallbackMap;
+import de.mxro.async.internal.PromiseImpl;
 
 public class Async {
 
 	/**
-	 * <p>Will apply the <b>asynchronous</b> operation operation to all inputs and call the callback once all operations are completed.
-	 * <p>Callback is also called upon the first operation which fails.
-	 * <p>ValueCallback must be called in closure.
+	 * <p>
+	 * Will apply the <b>asynchronous</b> operation operation to all inputs and
+	 * call the callback once all operations are completed.
+	 * <p>
+	 * Callback is also called upon the first operation which fails.
+	 * <p>
+	 * ValueCallback must be called in closure.
 	 * 
 	 * @param inputs
 	 * @param operation
@@ -28,10 +33,10 @@ public class Async {
 		}
 
 	}
-	
-	
-	public static <InputType, ResultType> Promise<ResultType> promise(Operation<InputType, ResultType> operation) {
-		
+
+	public static <ResultType> Promise<ResultType> promise(
+			AsyncPromise<ResultType> promise) {
+		return new PromiseImpl<ResultType>(promise);
 	}
 
 }
