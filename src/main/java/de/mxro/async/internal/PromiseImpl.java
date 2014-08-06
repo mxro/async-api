@@ -25,7 +25,7 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 			triggerOnFailure = failureCache != null;
 
 			if (!triggerOnFailure) {
-				
+
 				synchronized (resultCache) {
 					triggerOnSuccess = resultCache != null;
 
@@ -66,14 +66,15 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 			public void onFailure(Throwable t) {
 				synchronized (failureCache) {
 					failureCache = t;
+
+					final List<ValueCallback<ResultType>> cachedCalls;
+					synchronized (deferredCalls) {
+						cachedCalls = new ArrayList<ValueCallback<ResultType>>(
+								deferredCalls);
+					}
 				}
 
-				synchronized (deferredCalls) {
-					cachedCalls = new ArrayList<ValueCallback<ResultType>>(
-							deferredCalls);
-				}
-
-				for (ValueCallback<ResultType> deferredCb : deferredCalls) {
+				for (ValueCallback<ResultType> deferredCb : cachedCalls) {
 					deferredCb.onSuccess(resultCache);
 				}
 
