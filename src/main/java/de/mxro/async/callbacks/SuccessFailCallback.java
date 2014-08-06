@@ -7,5 +7,5 @@ package de.mxro.async.callbacks;
 
 public interface SuccessFailCallback<GError> {
 	public void onSuccess();
-	public void onFail(GError message);
+	public void onFailure(GError message);
 }
