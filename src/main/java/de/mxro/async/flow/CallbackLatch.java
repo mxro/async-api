@@ -3,7 +3,7 @@
  * 
  * All rights reserved.
  ******************************************************************************/
-package de.mxro.async.latch;
+package de.mxro.async.flow;
 
 
 /**
