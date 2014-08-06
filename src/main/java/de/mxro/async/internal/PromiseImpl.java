@@ -4,7 +4,7 @@ import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.fn.Closure;
 
-public class PromiseImpl<ResultType> implements Promise {
+public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
 	private final Operation<ResultType>
 	
@@ -24,25 +24,7 @@ public class PromiseImpl<ResultType> implements Promise {
 		
 	}
 	
-	@Override
-	public Object get() {
-		
-		
-		
-		return null;
-	}
-
-	@Override
-	public void catchExceptions(Closure closure) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void get(Closure closure) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	
 	
