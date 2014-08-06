@@ -45,6 +45,8 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 					}
 
 				}
+			} else {
+				triggerOnSuccess = false;
 			}
 		}
 
