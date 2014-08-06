@@ -137,7 +137,7 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
 	@Override
 	public void catchExceptions(Closure<Throwable> closure) {
-		assert !this.resultCache && !this.failureCache;
+		assert this.resultCache == null && this.failureCache == null;
 		
 		synchronized (exceptionCatchers) {
 			exceptionCatchers.add(closure);
@@ -150,7 +150,9 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
 			@Override
 			public void onFailure(Throwable t) {
-				
+				synchronized (exceptionCatchers) {
+					ArrayList<Closure<Throwable>> catchers = new ArrayList<Closure<Throwable>>(exceptionCatchers);
+				}
 			}
 
 			@Override
