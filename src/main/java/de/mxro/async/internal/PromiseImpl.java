@@ -68,7 +68,6 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 				synchronized (failureCache) {
 					failureCache = t;
 
-					
 					synchronized (deferredCalls) {
 						cachedCalls = new ArrayList<ValueCallback<ResultType>>(
 								deferredCalls);
@@ -86,19 +85,24 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 			public void onSuccess(ResultType value) {
 				final List<ValueCallback<ResultType>> cachedCalls;
 				synchronized (failureCache) {
-					
+
 					assert failureCache != null;
 					synchronized (resultCache) {
 						resultCache = value;
+
+						synchronized (deferredCalls) {
+							cachedCalls = new ArrayList<ValueCallback<ResultType>>(
+									deferredCalls);
+						}
 					}
-					
-					
-					synchronized (deferredCalls) {
-						cachedCalls = new ArrayList<ValueCallback<ResultType>>(
-								deferredCalls);
-					}
-					
+
 				}
+
+				for (ValueCallback<ResultType> deferredCb : cachedCalls) {
+					deferredCb.onSuccess(value);
+				}
+
+				callback.onSuccess(value);
 			}
 		});
 
