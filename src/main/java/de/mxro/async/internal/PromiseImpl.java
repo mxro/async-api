@@ -16,7 +16,7 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 	private Boolean isRequesting;
 	private Throwable failureCache;
 	
-	private final void requestResult(ValueCallback<ResultType> callback) {
+	private final void requestResult(final ValueCallback<ResultType> callback) {
 		
 		final boolean triggerOnFailure;
 		synchronized (failureCache) {
@@ -57,7 +57,15 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
 			@Override
 			public void onFailure(Throwable t) {
-				synchronized ()
+				synchronized (failureCache) {
+					failureCache = t;
+				}
+				
+				synchronized (deferredCalls) {
+					
+				}
+				
+				callback.onFailure(t);
 			}
 
 			@Override
