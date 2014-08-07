@@ -25,6 +25,10 @@ public class AsyncJre {
 		return parallel(promises.toArray(new Promise[0]));
 	}
 	
+	public static <ResultType> ResultType get(AsyncPromise<ResultType> promise) {
+		return new JrePromiseImpl<ResultType>(promise).get();
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public static List<Object> parallel(Promise... promises) {
 		
