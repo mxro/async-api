@@ -8,6 +8,7 @@ import de.mxro.async.AsyncPromise;
 import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.fn.Closure;
+import de.mxro.fn.Value;
 
 public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
@@ -15,9 +16,9 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
 	private final List<ValueCallback<ResultType>> deferredCalls;
 
-	private ResultType resultCache;
+	private Value<ResultType> resultCache;
 	private Boolean isRequesting;
-	private Throwable failureCache;
+	private Value<Throwable> failureCache;
 	private List<Closure<Throwable>> exceptionCatchers;
 
 	
@@ -32,12 +33,12 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 		final boolean triggerOnFailure;
 		final boolean triggerOnSuccess;
 		synchronized (failureCache) {
-			triggerOnFailure = failureCache != null;
+			triggerOnFailure = failureCache.get() != null;
 
 			if (!triggerOnFailure) {
 
 				synchronized (resultCache) {
-					triggerOnSuccess = resultCache != null;
+					triggerOnSuccess = resultCache.get() != null;
 
 					if (!triggerOnSuccess) {
 						synchronized (isRequesting) {
@@ -61,12 +62,12 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 		}
 
 		if (triggerOnFailure) {
-			callback.onFailure(failureCache);
+			callback.onFailure(failureCache.get());
 			return;
 		}
 
 		if (triggerOnSuccess) {
-			callback.onSuccess(resultCache);
+			callback.onSuccess(resultCache.get());
 			return;
 		}
 
@@ -76,7 +77,7 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 			public void onFailure(Throwable t) {
 				final List<ValueCallback<ResultType>> cachedCalls;
 				synchronized (failureCache) {
-					failureCache = t;
+					failureCache.set(t);
 
 					synchronized (deferredCalls) {
 						cachedCalls = new ArrayList<ValueCallback<ResultType>>(
@@ -96,9 +97,9 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 				final List<ValueCallback<ResultType>> cachedCalls;
 				synchronized (failureCache) {
 
-					assert failureCache != null;
+					assert failureCache.get() != null;
 					synchronized (resultCache) {
-						resultCache = value;
+						resultCache.set(value);
 
 						synchronized (deferredCalls) {
 							cachedCalls = new ArrayList<ValueCallback<ResultType>>(
