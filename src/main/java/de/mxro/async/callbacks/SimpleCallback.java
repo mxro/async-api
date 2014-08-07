@@ -13,7 +13,5 @@ public abstract class SimpleCallback implements FailureCallback, ValueCallback<V
 		onSuccess();
 	}
 
-	
-	
 
 }
