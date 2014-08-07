@@ -8,7 +8,6 @@ import de.mxro.async.AsyncPromise;
 import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.fn.Closure;
-import de.mxro.fn.Value;
 
 public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
@@ -179,8 +178,8 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 		super();
 		this.asyncPromise = asyncPromise;
 		this.deferredCalls = new LinkedList<ValueCallback<ResultType>>();
-		this.resultCache = null;
-		this.failureCache = null;
+		this.resultCache = new Value<ResultType>(null);
+		this.failureCache = new Value<Throwable>(null);
 		this.exceptionCatchers = new LinkedList<Closure<Throwable>>();
 		this.isRequesting = false;
 
