@@ -3,7 +3,7 @@ package de.mxro.async.jre.internal;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import de.mxro.async.PartialPromise;
+import de.mxro.async.PotentialPromise;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.internal.PromiseImpl;
 
@@ -49,7 +49,7 @@ public class JrePromiseImpl<ResultType> extends PromiseImpl<ResultType> {
 
 	}
 
-	public JrePromiseImpl(PartialPromise<ResultType> asyncPromise) {
+	public JrePromiseImpl(PotentialPromise<ResultType> asyncPromise) {
 		super(asyncPromise);
 	}
 

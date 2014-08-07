@@ -9,7 +9,7 @@ import de.mxro.async.callbacks.ValueCallback;
  *
  * @param <ResultType>
  */
-public interface PartialPromise<ResultType> {
+public interface PotentialPromise<ResultType> {
 
 	public void get(ValueCallback<ResultType> callback);
 	

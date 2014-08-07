@@ -35,7 +35,7 @@ public class Async {
 	}
 
 	public static <ResultType> Promise<ResultType> promise(
-			PartialPromise<ResultType> promise) {
+			PotentialPromise<ResultType> promise) {
 		return new PromiseImpl<ResultType>(promise);
 	}
 

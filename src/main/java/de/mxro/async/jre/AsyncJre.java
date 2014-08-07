@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import de.mxro.async.Async;
-import de.mxro.async.PartialPromise;
+import de.mxro.async.PotentialPromise;
 import de.mxro.async.Operation;
 import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ListCallback;
@@ -17,7 +17,7 @@ import de.mxro.async.jre.internal.JrePromiseImpl;
 public class AsyncJre {
 
 	public static <ResultType> Promise<ResultType> promise(
-			PartialPromise<ResultType> promise) {
+			PotentialPromise<ResultType> promise) {
 		return new JrePromiseImpl<ResultType>(promise);
 	}
 	
@@ -25,14 +25,14 @@ public class AsyncJre {
 		return parallel(promises.toArray(new Promise[0]));
 	}
 	
-	public static <ResultType> ResultType get(PartialPromise<ResultType> promise) {
+	public static <ResultType> ResultType get(PotentialPromise<ResultType> promise) {
 		return new JrePromiseImpl<ResultType>(promise).get();
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" }) 
-	public static List<Object> parallel(PartialPromise... promises) {
+	public static List<Object> parallel(PotentialPromise... promises) {
 		ArrayList<Promise> list = new ArrayList<Promise>(promises.length);
-		for (PartialPromise ap : promises) {
+		for (PotentialPromise ap : promises) {
 			list.add(promise(ap));
 		}
 		
