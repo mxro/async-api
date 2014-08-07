@@ -39,6 +39,5 @@ public class Async {
 		return new PromiseImpl<ResultType>(promise);
 	}
 
-	public static void all()
 	
 }
