@@ -29,6 +29,16 @@ public class AsyncJre {
 		return new JrePromiseImpl<ResultType>(promise).get();
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" }) 
+	public static List<Object> parallel(AsyncPromise... promises) {
+		ArrayList<Promise> list = new ArrayList<Promise>(promises.length);
+		for (AsyncPromise ap : promises) {
+			list.add(promise(ap));
+		}
+		
+		return parallel(list.toArray(new Promise[0]));
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public static List<Object> parallel(Promise... promises) {
 		
