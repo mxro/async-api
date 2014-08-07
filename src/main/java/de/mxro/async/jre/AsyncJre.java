@@ -1,6 +1,8 @@
 package de.mxro.async.jre;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import de.mxro.async.Async;
 import de.mxro.async.AsyncPromise;
@@ -19,32 +21,42 @@ public class AsyncJre {
 	
 	public static List<Object> parallel(Promise... promises) {
 		
-		Async.map(promises, new Operation<Promise, Object>() {
+		final CountDownLatch latch = new CountDownLatch(1);
+		
+		Async.map(Arrays.asList(promises), new Operation<Promise, Object>() {
 
 			@Override
 			public void apply(Promise input,
 					ValueCallback<Object> callback) {
-				// TODO Auto-generated method stub
-				
+				input.get(new ValueCallback<Object>() {
+
+					@Override
+					public void onFailure(Throwable t) {
+						callback.onFailure(t);
+					}
+
+					@Override
+					public void onSuccess(Object value) {
+						callback.onSuccess(value);
+					}
+				});
 			}
 		}, new ListCallback<Object>() {
 
 			@Override
 			public void onSuccess(List<Object> value) {
-				// TODO Auto-generated method stub
-				
+				latch.countDown();
 			}
 
 			@Override
 			public void onFailure(Throwable t) {
-				// TODO Auto-generated method stub
-				
+				latch.countDown();
 			}
 		});
 		
-		for (Promise p: promises) {
-			
-		}
+		
+		
+		
 	}
 	
 }
