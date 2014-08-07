@@ -20,6 +20,13 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 	private Throwable failureCache;
 	private List<Closure<Throwable>> exceptionCatchers;
 
+	
+	
+	@Override
+	public void get(ValueCallback<ResultType> callback) {
+		requestResult(callback);
+	}
+
 	private final void requestResult(final ValueCallback<ResultType> callback) {
 
 		final boolean triggerOnFailure;
