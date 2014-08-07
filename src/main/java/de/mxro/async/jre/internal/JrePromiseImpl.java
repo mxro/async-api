@@ -1,4 +1,4 @@
-package de.mxro.async.jre;
+package de.mxro.async.jre.internal;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
