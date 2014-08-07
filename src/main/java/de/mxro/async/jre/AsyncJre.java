@@ -3,6 +3,7 @@ package de.mxro.async.jre;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import de.mxro.async.Async;
 import de.mxro.async.AsyncPromise;
@@ -53,6 +54,16 @@ public class AsyncJre {
 				latch.countDown();
 			}
 		});
+		
+		try {
+			latch.await(120000, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+		
+		if (latch.getCount() == 0) {
+			throw new RuntimeException("Parallel operation was not completed in timeout.");
+		}
 		
 		
 		
