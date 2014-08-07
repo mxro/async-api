@@ -35,7 +35,7 @@ public class Async {
 	}
 
 	public static <ResultType> Promise<ResultType> promise(
-			PromiseBlueprint<ResultType> promise) {
+			Deferred<ResultType> promise) {
 		return new PromiseImpl<ResultType>(promise);
 	}
 

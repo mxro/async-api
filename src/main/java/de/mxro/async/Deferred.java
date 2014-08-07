@@ -9,7 +9,7 @@ import de.mxro.async.callbacks.ValueCallback;
  *
  * @param <ResultType>
  */
-public interface PromiseBlueprint<ResultType> {
+public interface Deferred<ResultType> {
 
 	public void get(ValueCallback<ResultType> callback);
 	

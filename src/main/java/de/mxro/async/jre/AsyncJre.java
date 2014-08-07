@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import de.mxro.async.Async;
-import de.mxro.async.PromiseBlueprint;
+import de.mxro.async.Deferred;
 import de.mxro.async.Operation;
 import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ListCallback;
@@ -17,7 +17,7 @@ import de.mxro.async.jre.internal.JrePromiseImpl;
 public class AsyncJre {
 
 	public static <ResultType> Promise<ResultType> promise(
-			PromiseBlueprint<ResultType> promise) {
+			Deferred<ResultType> promise) {
 		return new JrePromiseImpl<ResultType>(promise);
 	}
 	
@@ -25,14 +25,14 @@ public class AsyncJre {
 		return parallel(promises.toArray(new Promise[0]));
 	}
 	
-	public static <ResultType> ResultType get(PromiseBlueprint<ResultType> promise) {
+	public static <ResultType> ResultType get(Deferred<ResultType> promise) {
 		return new JrePromiseImpl<ResultType>(promise).get();
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" }) 
-	public static List<Object> parallel(PromiseBlueprint... promises) {
+	public static List<Object> parallel(Deferred... promises) {
 		ArrayList<Promise> list = new ArrayList<Promise>(promises.length);
-		for (PromiseBlueprint ap : promises) {
+		for (Deferred ap : promises) {
 			list.add(promise(ap));
 		}
 		

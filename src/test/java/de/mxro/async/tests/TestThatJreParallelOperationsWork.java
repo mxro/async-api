@@ -6,14 +6,14 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import de.mxro.async.PromiseBlueprint;
+import de.mxro.async.Deferred;
 import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.jre.AsyncJre;
 
 public class TestThatJreParallelOperationsWork {
 
-	private final class RandomlyDelayedPromise implements PromiseBlueprint<String> {
+	private final class RandomlyDelayedPromise implements Deferred<String> {
 		@Override
 		public void get(final ValueCallback<String> callback) {
 			new Thread() {
