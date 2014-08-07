@@ -27,7 +27,7 @@ public class AsyncJre {
 
 			@Override
 			public void apply(Promise input,
-					ValueCallback<Object> callback) {
+					final ValueCallback<Object> callback) {
 				input.get(new ValueCallback<Object>() {
 
 					@Override
