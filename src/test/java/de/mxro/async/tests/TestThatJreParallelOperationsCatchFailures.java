@@ -43,7 +43,7 @@ public class TestThatJreParallelOperationsCatchFailures {
 		
 	}
 	
-	@Test
+	@Test(expected = Exception.class)
 	public void test_it() {
 		List<Promise<String>> promises = new ArrayList<Promise<String>>();
 
@@ -51,6 +51,9 @@ public class TestThatJreParallelOperationsCatchFailures {
 			Promise<String> p = AsyncJre.promise(new RandomlyFailingPromise());
 			promises.add(p);
 		}
+		
+		AsyncJre.parallel(promises);
+		
 	}
 	
 }
