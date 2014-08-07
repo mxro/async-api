@@ -5,12 +5,13 @@ import java.util.Random;
 import org.junit.Test;
 
 import de.mxro.async.AsyncPromise;
+import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.jre.AsyncJre;
 
 public class TestThatJreParallelOperationsWork {
 
-	private final class AsyncPromiseImplementation implements
+	private final class RandomlyDelayedPromise implements
 			AsyncPromise<String> {
 		@Override
 		public void get(final ValueCallback<String> callback) {
@@ -38,7 +39,7 @@ public class TestThatJreParallelOperationsWork {
 	public void test_it() {
 		
 		
-		AsyncJre.promise(new AsyncPromiseImplementation());
+		Promise<String> promise1 = AsyncJre.promise(new RandomlyDelayedPromise());
 		
 	}
 	
