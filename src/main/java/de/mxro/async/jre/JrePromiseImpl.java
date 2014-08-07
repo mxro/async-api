@@ -1,5 +1,7 @@
 package de.mxro.async.jre;
 
+import java.util.concurrent.CountDownLatch;
+
 import de.mxro.async.AsyncPromise;
 import de.mxro.async.internal.PromiseImpl;
 
@@ -17,9 +19,7 @@ public class JrePromiseImpl<ResultType> extends PromiseImpl<ResultType> {
 			return result;
 		}
 		
-		synchronized (monitor) {
-			monitor.wait(30000);
-		}
+		CountDownLatch latch = new CountDownLatch(1);
 		
 		return resultType;
 	}
