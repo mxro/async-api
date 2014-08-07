@@ -21,8 +21,8 @@ public class AsyncJre {
 		return new JrePromiseImpl<ResultType>(promise);
 	}
 	
-	public static List<Object> parallel(List<Promise<Object>> promises) {
-		parallel(promises.toArray(new Promise[]));
+	public static <T> List<Object> parallel(List<Promise<T>> promises) {
+		return parallel(promises.toArray(new Promise[0]));
 	}
 	
 	@SuppressWarnings("rawtypes")
