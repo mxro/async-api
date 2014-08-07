@@ -1,32 +1,56 @@
 package de.mxro.async.jre;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import de.mxro.async.AsyncPromise;
+import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.internal.PromiseImpl;
 
 public class JrePromiseImpl<ResultType> extends PromiseImpl<ResultType> {
 
-	
-	private final Object monitor;
-	
 	@Override
 	public ResultType get() {
-		
+
 		ResultType result = super.get();
-		
+
 		if (result != null) {
 			return result;
 		}
-		
-		CountDownLatch latch = new CountDownLatch(1);
-		
-		return resultType;
+
+		final CountDownLatch latch = new CountDownLatch(1);
+
+		get(new ValueCallback<ResultType>() {
+
+			@Override
+			public void onFailure(Throwable t) {
+				latch.countDown();
+			}
+
+			@Override
+			public void onSuccess(ResultType value) {
+				latch.countDown();
+			}
+		});
+
+		try {
+
+			latch.await(320000, TimeUnit.MILLISECONDS);
+		} catch (final InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+
+		if (latch.getCount() > 0) {
+			throw new RuntimeException(
+					"Get call could not be completed in 320 s timeout.");
+		}
+
+		return get();
+
 	}
 
 	public JrePromiseImpl(AsyncPromise<ResultType> asyncPromise) {
 		super(asyncPromise);
-		this.monitor = new Object();
 	}
 
 }
