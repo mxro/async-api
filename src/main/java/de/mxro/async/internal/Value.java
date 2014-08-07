@@ -4,11 +4,11 @@ public class Value<T> {
 
 	private T value;
 	
-	public T get() {
+	public synchronized T get() {
 		return value;
 	}
 
-	public Value<T> set(T value) {
+	public synchronized Value<T> set(T value) {
 		this.value = value;
 		return this;
 	}
