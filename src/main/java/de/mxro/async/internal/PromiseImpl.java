@@ -131,21 +131,22 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 		});
 		
 		synchronized (this.failureCache) {
-			if (this.failureCache != null) {
-				throw new RuntimeException(this.failureCache);
+			if (this.failureCache.get() != null) {
+				throw new RuntimeException(this.failureCache.get());
 			}
 		}
 
-		final ResultType resultCache2 = this.resultCache;
+	    ResultType resultCache2;
 		synchronized (this.resultCache) {
+			resultCache2 = this.resultCache.get();
 			
-			return resultCache2;
 		}
+		return resultCache2;
 	}
 
 	@Override
 	public void catchExceptions(Closure<Throwable> closure) {
-		assert this.resultCache == null && this.failureCache == null;
+		assert this.resultCache.get() == null && this.failureCache.get() == null;
 		
 		synchronized (exceptionCatchers) {
 			exceptionCatchers.add(closure);
