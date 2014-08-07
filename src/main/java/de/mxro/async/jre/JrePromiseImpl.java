@@ -18,7 +18,7 @@ public class JrePromiseImpl<ResultType> extends PromiseImpl<ResultType> {
 		}
 		
 		synchronized (monitor) {
-			monitor.wait();
+			monitor.wait(30000);
 		}
 		
 		return resultType;
