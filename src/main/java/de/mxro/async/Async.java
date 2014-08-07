@@ -5,7 +5,6 @@ import java.util.List;
 import de.mxro.async.callbacks.ListCallback;
 import de.mxro.async.flow.CallbackMap;
 import de.mxro.async.internal.PromiseImpl;
-import de.mxro.fn.Closure2;
 
 public class Async {
 
@@ -40,10 +39,5 @@ public class Async {
 		return new PromiseImpl<ResultType>(promise);
 	}
 
-	public static <ResultType1, ResultType2> void sequential(
-			Deferred<ResultType1> deferred1, Deferred<ResultType2> deferred2,
-			Closure2<ResultType1, ResultType2> closure) {
-
-	}
 
 }
