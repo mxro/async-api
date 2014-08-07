@@ -2,7 +2,7 @@ package de.mxro.async;
 
 import de.mxro.fn.Closure;
 
-public interface Promise<ResultType> extends AsyncPromise<ResultType> {
+public interface Promise<ResultType> extends PartialPromise<ResultType> {
 
 	public ResultType get();
 	

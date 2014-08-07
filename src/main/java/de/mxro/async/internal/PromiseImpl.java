@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.mxro.async.AsyncPromise;
+import de.mxro.async.PartialPromise;
 import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.fn.Closure;
 
 public class PromiseImpl<ResultType> implements Promise<ResultType> {
 
-	private final AsyncPromise<ResultType> asyncPromise;
+	private final PartialPromise<ResultType> asyncPromise;
 
 	private final List<ValueCallback<ResultType>> deferredCalls;
 
@@ -174,7 +174,7 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
 		});
 	}
 
-	public PromiseImpl(AsyncPromise<ResultType> asyncPromise) {
+	public PromiseImpl(PartialPromise<ResultType> asyncPromise) {
 		super();
 		this.asyncPromise = asyncPromise;
 		this.deferredCalls = new LinkedList<ValueCallback<ResultType>>();
