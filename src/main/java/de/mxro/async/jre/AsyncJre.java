@@ -68,7 +68,7 @@ public class AsyncJre {
 			throw new RuntimeException(e);
 		}
 		
-		if (latch.getCount() == 0) {
+		if (latch.getCount() > 0) {
 			throw new RuntimeException("Parallel operation was not completed in timeout.");
 		}
 		

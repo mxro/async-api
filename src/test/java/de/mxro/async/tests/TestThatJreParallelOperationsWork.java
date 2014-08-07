@@ -44,7 +44,7 @@ public class TestThatJreParallelOperationsWork {
 			promises.add(p);
 		}
 		
-		AsyncJre.parallel(promises);
+		System.out.println(AsyncJre.parallel(promises));
 
 	}
 }
