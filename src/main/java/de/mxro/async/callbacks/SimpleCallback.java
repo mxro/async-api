@@ -5,7 +5,15 @@
  ******************************************************************************/
 package de.mxro.async.callbacks;
 
-public interface SimpleCallback extends FailureCallback {
-	public void onSuccess();
+public abstract class SimpleCallback implements FailureCallback, ValueCallback<Void> {
+	public abstract void onSuccess();
+
+	@Override
+	public void onSuccess(Void value) {
+		onSuccess();
+	}
+
+	
+	
 
 }
