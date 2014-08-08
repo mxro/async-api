@@ -9,7 +9,6 @@
 	<url>https://github.com/mxro/async-api</url>
 
 	<properties>
-
 		<module.gwtVersion>2.5.1</module.gwtVersion>
 		<module.importedPackages>
 			org.junit,
