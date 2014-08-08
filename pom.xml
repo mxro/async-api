@@ -181,7 +181,7 @@
 							<version>2.9.1</version>
 							<configuration>
 								<links>
-									<link>http://modules.appjangle.com/fn-api/apidocs/</link>
+									<link>http://modules.appjangle.com/fn-api/latest/apidocs/</link>
 								</links>
 							</configuration>
 						</plugin>
