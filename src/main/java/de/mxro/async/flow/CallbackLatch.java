@@ -5,6 +5,7 @@
  ******************************************************************************/
 package de.mxro.async.flow;
 
+import de.mxro.async.internal.Value;
 
 /**
  * Allows to wait for a specified number of asynchronous operations.
@@ -17,9 +18,10 @@ package de.mxro.async.flow;
 public abstract class CallbackLatch {
 
 	final int expected;
-	Integer received;
-	volatile boolean failed;
+	Value<Integer> received;
+	volatile Value<Boolean> failed;
 
+	
 	/**
 	 * This method is called when for all expected callbacks
 	 * {@link #registerSuccess()} has been called.
@@ -33,20 +35,24 @@ public abstract class CallbackLatch {
 	 */
 	public void registerSuccess() {
 		synchronized (received) {
-			received++;
-			if (!failed && received == expected) {
-				onCompleted();
+			synchronized (failed) {
+				received.set(received.get() + 1);
+				if (!failed.get() && received.get() == expected) {
+					onCompleted();
+				}
 			}
 		}
 	}
 
 	public void registerFail(final Throwable t) {
 		synchronized (received) {
-			if (!failed) {
-				failed = true;
-				onFailed(t);
+			synchronized (failed) {
+				if (!failed.get()) {
+					failed.set(true);
+					onFailed(t);
+				}
+				failed.set(true);
 			}
-			failed = true;
 		}
 
 	}
@@ -56,8 +62,8 @@ public abstract class CallbackLatch {
 		assert expected >= 0;
 
 		this.expected = expected;
-		this.failed = false;
-		this.received = 0;
+		this.failed = new Value<Boolean>(false);
+		this.received = new Value<Integer>(0);
 
 		if (expected == 0) {
 			onCompleted();

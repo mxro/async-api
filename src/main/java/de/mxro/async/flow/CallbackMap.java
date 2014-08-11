@@ -12,6 +12,7 @@ import java.util.Map;
 
 import de.mxro.async.callbacks.ListCallback;
 import de.mxro.async.callbacks.ValueCallback;
+import de.mxro.async.internal.Value;
 import de.mxro.fn.collections.CollectionsUtils;
 import de.mxro.fn.collections.IdentityArrayList;
 
@@ -33,6 +34,7 @@ public class CallbackMap<GInput, GOutput> {
 	final int expectedSize;
 	final ListCallback<GOutput> callback;
 
+	
 	public ValueCallback<GOutput> createCallback(final GInput message) {
 		return new ValueCallback<GOutput>() {
 
@@ -50,18 +52,18 @@ public class CallbackMap<GInput, GOutput> {
 				}
 			}
 
-			Boolean failureReported = false;
+			Value<Boolean> failureReported = new Value<Boolean>(false);
 
 			@Override
 			public void onFailure(final Throwable t) {
 				// failure should be reported only once.
 				synchronized (failureReported) {
-					if (!failureReported) {
+					if (!failureReported.get()) {
 						callback.onFailure(t);
 					} else {
 						throw new RuntimeException(t); // TODO maybe disable ...
 					}
-					failureReported = true;
+					failureReported.set(true);
 				}
 			}
 
