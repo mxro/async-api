@@ -3,8 +3,11 @@ package de.mxro.async;
 import java.util.List;
 
 import de.mxro.async.callbacks.ListCallback;
+import de.mxro.async.callbacks.SimpleCallback;
+import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.flow.CallbackMap;
 import de.mxro.async.internal.PromiseImpl;
+import de.mxro.fn.Success;
 
 public class Async {
 
@@ -39,5 +42,20 @@ public class Async {
 		return new PromiseImpl<ResultType>(promise);
 	}
 
+	public static SimpleCallback wrap(final ValueCallback<Success> callback) {
+		return new SimpleCallback() {
+			
+			@Override
+			public void onFailure(Throwable t) {
+				callback.onFailure(t);
+			}
+			
+			@Override
+			public void onSuccess() {
+				callback.onSuccess(Success.INSTANCE);
+			}
+		};
+	}
+	
 
 }
