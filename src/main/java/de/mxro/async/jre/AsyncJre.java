@@ -12,6 +12,7 @@ import de.mxro.async.Operation;
 import de.mxro.async.Promise;
 import de.mxro.async.callbacks.ListCallback;
 import de.mxro.async.callbacks.ValueCallback;
+import de.mxro.async.internal.Value;
 import de.mxro.async.jre.internal.JrePromiseImpl;
 
 public class AsyncJre {
@@ -100,14 +101,34 @@ public class AsyncJre {
 	
 	public static final <T> T waitFor(Deferred<T> deferred) {
 		
-		CountDownLatch latch = new CountDownLatch(1);
+		final CountDownLatch latch = new CountDownLatch(1);
+		final Value<T> result = new Value<T>(null);
+		final Value<Throwable> failure = new Value<Throwable>(null);
 		
+		deferred.get(new ValueCallback<T>() {
+
+			@Override
+			public void onFailure(Throwable t) {
+				failure.set(t);
+				latch.countDown();
+			}
+
+			@Override
+			public void onSuccess(T value) {
+				result.set(value);
+			}
+		});
 		
 		try {
 			latch.await(30000, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
+		
+		if (latch.getCount() > 0) {
+			throw new RuntimeException("Operation not completed in timeout: "+deferred);
+		}
+		
 		
 	}
 	
