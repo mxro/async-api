@@ -98,4 +98,17 @@ public class AsyncJre {
 		
 	}
 	
+	public static final <T> T waitFor(Deferred<T> deferred) {
+		
+		CountDownLatch latch = new CountDownLatch(1);
+		
+		
+		try {
+			latch.await(30000, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
 }
