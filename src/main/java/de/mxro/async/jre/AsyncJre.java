@@ -116,6 +116,7 @@ public class AsyncJre {
 			@Override
 			public void onSuccess(T value) {
 				result.set(value);
+				latch.countDown();
 			}
 		});
 		
@@ -129,6 +130,11 @@ public class AsyncJre {
 			throw new RuntimeException("Operation not completed in timeout: "+deferred);
 		}
 		
+		if (failure.get() != null) {
+			throw new RuntimeException("Exception while performing asynchronous operation", failure.get());
+		}
+		
+		return result.get();
 		
 	}
 	
