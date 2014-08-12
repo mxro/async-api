@@ -37,12 +37,12 @@ public class Async {
 
 	}
 
-	public static <ResultType> Promise<ResultType> promise(
+	public final static <ResultType> Promise<ResultType> promise(
 			Deferred<ResultType> promise) {
 		return new PromiseImpl<ResultType>(promise);
 	}
 
-	public static SimpleCallback wrap(final ValueCallback<Success> callback) {
+	public final static SimpleCallback wrap(final ValueCallback<Success> callback) {
 		return new SimpleCallback() {
 			
 			@Override
@@ -57,5 +57,19 @@ public class Async {
 		};
 	}
 	
+	public final static SimpleCallback doNothing() {
+		return new SimpleCallback() {
+			
+			@Override
+			public void onFailure(Throwable t) {
+				throw new RuntimeException(t);
+			}
+			
+			@Override
+			public void onSuccess() {
+				
+			}
+		};
+	}
 
 }
