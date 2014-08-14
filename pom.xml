@@ -8,6 +8,7 @@
 	<description>Asynchronous utilities for Java and GWT applications. Including a simple promise implementation for Java.</description>
 	<url>https://github.com/mxro/async-api</url>
 
+
 	<properties>
 		<module.gwtVersion>2.5.1</module.gwtVersion>
 		<module.importedPackages>
