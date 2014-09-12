@@ -15,137 +15,138 @@ import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.internal.Value;
 import de.mxro.async.jre.internal.JrePromiseImpl;
 
+/**
+ * Asynchronous utilities which are only available in Oracle Java, OpenJDK and
+ * Android (and not for GWT).
+ * 
+ * @author <a href="http://www.mxro.de">Max Rohde</a>
+ *
+ */
 public class AsyncJre {
 
-	public static <ResultType> Promise<ResultType> promise(
-			Deferred<ResultType> promise) {
-		return new JrePromiseImpl<ResultType>(promise);
-	}
+    public static <ResultType> Promise<ResultType> promise(final Deferred<ResultType> promise) {
+        return new JrePromiseImpl<ResultType>(promise);
+    }
 
-	public static <T> List<Object> parallel(List<Promise<T>> promises) {
-		return parallel(promises.toArray(new Promise[0]));
-	}
+    public static <T> List<Object> parallel(final List<Promise<T>> promises) {
+        return parallel(promises.toArray(new Promise[0]));
+    }
 
-	public static <ResultType> ResultType get(Deferred<ResultType> promise) {
-		return new JrePromiseImpl<ResultType>(promise).get();
-	}
+    public static <ResultType> ResultType get(final Deferred<ResultType> promise) {
+        return new JrePromiseImpl<ResultType>(promise).get();
+    }
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static List<Object> parallel(Deferred... promises) {
-		ArrayList<Promise> list = new ArrayList<Promise>(promises.length);
-		for (Deferred ap : promises) {
-			list.add(promise(ap));
-		}
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public static List<Object> parallel(final Deferred... promises) {
+        final ArrayList<Promise> list = new ArrayList<Promise>(promises.length);
+        for (final Deferred ap : promises) {
+            list.add(promise(ap));
+        }
 
-		return parallel(list.toArray(new Promise[0]));
-	}
+        return parallel(list.toArray(new Promise[0]));
+    }
 
-	@SuppressWarnings("rawtypes")
-	public static List<Object> parallel(Promise... promises) {
+    @SuppressWarnings("rawtypes")
+    public static List<Object> parallel(final Promise... promises) {
 
-		final CountDownLatch latch = new CountDownLatch(1);
+        final CountDownLatch latch = new CountDownLatch(1);
 
-		Async.map(Arrays.asList(promises), new Operation<Promise, Object>() {
+        Async.map(Arrays.asList(promises), new Operation<Promise, Object>() {
 
-			@SuppressWarnings("unchecked")
-			@Override
-			public void apply(Promise input,
-					final ValueCallback<Object> callback) {
-				input.get(new ValueCallback<Object>() {
+            @SuppressWarnings("unchecked")
+            @Override
+            public void apply(final Promise input, final ValueCallback<Object> callback) {
+                input.get(new ValueCallback<Object>() {
 
-					@Override
-					public void onFailure(Throwable t) {
-						callback.onFailure(t);
-					}
+                    @Override
+                    public void onFailure(final Throwable t) {
+                        callback.onFailure(t);
+                    }
 
-					@Override
-					public void onSuccess(Object value) {
-						callback.onSuccess(value);
-					}
-				});
-			}
-		}, new ListCallback<Object>() {
+                    @Override
+                    public void onSuccess(final Object value) {
+                        callback.onSuccess(value);
+                    }
+                });
+            }
+        }, new ListCallback<Object>() {
 
-			@Override
-			public void onSuccess(List<Object> value) {
-				latch.countDown();
-			}
+            @Override
+            public void onSuccess(final List<Object> value) {
+                latch.countDown();
+            }
 
-			@Override
-			public void onFailure(Throwable t) {
-				latch.countDown();
-			}
-		});
+            @Override
+            public void onFailure(final Throwable t) {
+                latch.countDown();
+            }
+        });
 
-		try {
-			latch.await(120000, TimeUnit.MILLISECONDS);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+        try {
+            latch.await(120000, TimeUnit.MILLISECONDS);
+        } catch (final InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-		if (latch.getCount() > 0) {
-			throw new RuntimeException(
-					"Parallel operation was not completed in timeout.");
-		}
+        if (latch.getCount() > 0) {
+            throw new RuntimeException("Parallel operation was not completed in timeout.");
+        }
 
-		List<Object> res = new ArrayList<Object>(promises.length);
+        final List<Object> res = new ArrayList<Object>(promises.length);
 
-		for (Promise p : promises) {
-			res.add(p.get());
-		}
+        for (final Promise p : promises) {
+            res.add(p.get());
+        }
 
-		return res;
+        return res;
 
-	}
+    }
 
-	/**
-	 * Executes the specified {@link Deferred} operation and blocks the calling
-	 * thread until the operation is completed.
-	 * 
-	 * @param deferred
-	 *            The deferred operation to be executed.
-	 * @return The result of the deferred operation.
-	 */
-	public static final <T> T waitFor(Deferred<T> deferred) {
+    /**
+     * Executes the specified {@link Deferred} operation and blocks the calling
+     * thread until the operation is completed.
+     * 
+     * @param deferred
+     *            The deferred operation to be executed.
+     * @return The result of the deferred operation.
+     */
+    public static final <T> T waitFor(final Deferred<T> deferred) {
 
-		final CountDownLatch latch = new CountDownLatch(1);
-		final Value<T> result = new Value<T>(null);
-		final Value<Throwable> failure = new Value<Throwable>(null);
+        final CountDownLatch latch = new CountDownLatch(1);
+        final Value<T> result = new Value<T>(null);
+        final Value<Throwable> failure = new Value<Throwable>(null);
 
-		deferred.get(new ValueCallback<T>() {
+        deferred.get(new ValueCallback<T>() {
 
-			@Override
-			public void onFailure(Throwable t) {
-				failure.set(t);
-				latch.countDown();
-			}
+            @Override
+            public void onFailure(final Throwable t) {
+                failure.set(t);
+                latch.countDown();
+            }
 
-			@Override
-			public void onSuccess(T value) {
-				result.set(value);
-				latch.countDown();
-			}
-		});
+            @Override
+            public void onSuccess(final T value) {
+                result.set(value);
+                latch.countDown();
+            }
+        });
 
-		try {
-			latch.await(30000, TimeUnit.MILLISECONDS);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+        try {
+            latch.await(30000, TimeUnit.MILLISECONDS);
+        } catch (final InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-		if (latch.getCount() > 0) {
-			throw new RuntimeException("Operation not completed in timeout: "
-					+ deferred);
-		}
+        if (latch.getCount() > 0) {
+            throw new RuntimeException("Operation not completed in timeout: " + deferred);
+        }
 
-		if (failure.get() != null) {
-			throw new RuntimeException(
-					"Exception while performing asynchronous operation",
-					failure.get());
-		}
+        if (failure.get() != null) {
+            throw new RuntimeException("Exception while performing asynchronous operation", failure.get());
+        }
 
-		return result.get();
+        return result.get();
 
-	}
+    }
 
 }
