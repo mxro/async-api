@@ -7,11 +7,34 @@ import de.mxro.async.callbacks.SimpleCallback;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.flow.CallbackMap;
 import de.mxro.async.internal.PromiseImpl;
+import de.mxro.async.internal.Value;
 import de.mxro.fn.Success;
 
 public final class Async {
 
     public static final <ResultType> ResultType get(final Deferred<ResultType> deferred) {
+
+        final Value<ResultType> value = new Value<ResultType>(null);
+        final Value<Throwable> exception = new Value<Throwable>(null);
+
+        deferred.get(new ValueCallback<ResultType>() {
+
+            @Override
+            public void onFailure(final Throwable t) {
+                exception.set(t);
+            }
+
+            @Override
+            public void onSuccess(final ResultType result) {
+                value.set(result);
+            }
+        });
+
+        if (exception.get() != null) {
+            throw new RuntimeException(exception.get());
+        }
+
+        return value.get();
 
     }
 
