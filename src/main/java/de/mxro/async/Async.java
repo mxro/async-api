@@ -16,7 +16,9 @@ public final class Async {
      * <p>
      * Tries to resolve a {@link Deferred} immediately without waiting for the
      * asynchronous operation.
-     * 
+     * <p>
+     * This is useful for operations which actually resolve in a synchronous
+     * fashion (which might be added for legacy logic).
      * 
      * @param deferred
      * @return
