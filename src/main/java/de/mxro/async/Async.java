@@ -12,6 +12,15 @@ import de.mxro.fn.Success;
 
 public final class Async {
 
+    /**
+     * <p>
+     * Tries to resolve a {@link Deferred} immediately without waiting for the
+     * asynchronous operation.
+     * 
+     * 
+     * @param deferred
+     * @return
+     */
     public static final <ResultType> ResultType getDirty(final Deferred<ResultType> deferred) {
 
         final Value<Boolean> resolved = new Value<Boolean>(false);
