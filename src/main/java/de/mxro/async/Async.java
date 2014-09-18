@@ -14,6 +14,7 @@ public final class Async {
 
     public static final <ResultType> ResultType get(final Deferred<ResultType> deferred) {
 
+        final Value<Boolean> resolved = new Value<Boolean>(false);
         final Value<ResultType> value = new Value<ResultType>(null);
         final Value<Throwable> exception = new Value<Throwable>(null);
 
@@ -26,12 +27,18 @@ public final class Async {
 
             @Override
             public void onSuccess(final ResultType result) {
+
                 value.set(result);
+                resolved.set(true);
             }
         });
 
         if (exception.get() != null) {
             throw new RuntimeException(exception.get());
+        }
+
+        if (!resolved.get()) {
+            throw new RuntimeException("Asynchronous get could not be resolved for " + deferred);
         }
 
         return value.get();
