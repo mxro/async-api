@@ -12,7 +12,7 @@ import de.mxro.fn.Success;
 
 public final class Async {
 
-    public static final <ResultType> ResultType get(final Deferred<ResultType> deferred) {
+    public static final <ResultType> ResultType getDirty(final Deferred<ResultType> deferred) {
 
         final Value<Boolean> resolved = new Value<Boolean>(false);
         final Value<ResultType> value = new Value<ResultType>(null);
