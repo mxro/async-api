@@ -8,6 +8,7 @@ import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.flow.CallbackMap;
 import de.mxro.async.internal.PromiseImpl;
 import de.mxro.async.internal.Value;
+import de.mxro.fn.Closure;
 import de.mxro.fn.Success;
 
 public final class Async {
@@ -110,6 +111,21 @@ public final class Async {
             @Override
             public void onSuccess() {
 
+            }
+        };
+    }
+
+    public final static SimpleCallback onSuccess(final Closure<Success> closure) {
+        return new SimpleCallback() {
+
+            @Override
+            public void onFailure(final Throwable t) {
+                throw new RuntimeException(t);
+            }
+
+            @Override
+            public void onSuccess() {
+                closure.apply(Success.INSTANCE);
             }
         };
     }
