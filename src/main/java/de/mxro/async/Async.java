@@ -117,8 +117,6 @@ public final class Async {
 
     public final static SimpleCallback onSuccess(final Closure<Success> closure) {
 
-        final Value<Throwable> exception = new Value<Throwable>(null);
-
         return new SimpleCallback() {
 
             @Override
