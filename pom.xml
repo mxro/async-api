@@ -338,7 +338,7 @@
 
 	<scm>
 		<connection>scm:git:git@github.com:mxro/async-api.git</connection>
-		<url>https://github.com/mxro/fn-api</url>
+		<url>https://github.com/mxro/async-api</url>
 		<developerConnection>scm:git:git@github.com:mxro/async-api.git
 		</developerConnection>
 	</scm>
