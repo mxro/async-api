@@ -5,7 +5,7 @@
  ******************************************************************************/
 package de.mxro.async.flow;
 
-import de.mxro.async.internal.Value;
+import de.mxro.async.Value;
 
 /**
  * Allows to wait for a specified number of asynchronous operations.

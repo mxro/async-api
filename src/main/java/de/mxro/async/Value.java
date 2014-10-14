@@ -1,4 +1,4 @@
-package de.mxro.async.internal;
+package de.mxro.async;
 
 public class Value<T> {
 

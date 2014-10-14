@@ -6,6 +6,7 @@ import java.util.List;
 
 import de.mxro.async.Deferred;
 import de.mxro.async.Promise;
+import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.fn.Closure;
 

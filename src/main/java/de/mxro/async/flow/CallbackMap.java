@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.mxro.async.Value;
 import de.mxro.async.callbacks.ListCallback;
 import de.mxro.async.callbacks.ValueCallback;
-import de.mxro.async.internal.Value;
 import de.mxro.fn.collections.CollectionsUtils;
 import de.mxro.fn.collections.IdentityArrayList;
 
