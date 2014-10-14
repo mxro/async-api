@@ -17,7 +17,7 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
     private final List<ValueCallback<ResultType>> deferredCalls;
 
     private final Value<ResultType> resultCache;
-    private Boolean isRequesting;
+    private final Value<Boolean> isRequesting;
     private final Value<Throwable> failureCache;
     private final List<Closure<Throwable>> exceptionCatchers;
 
@@ -41,13 +41,13 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
                     if (!triggerOnSuccess) {
                         synchronized (isRequesting) {
 
-                            if (isRequesting) {
+                            if (isRequesting.get()) {
                                 synchronized (deferredCalls) {
                                     deferredCalls.add(callback);
                                 }
                                 return;
                             } else {
-                                isRequesting = true;
+                                isRequesting.set(true);
                             }
 
                         }
@@ -178,7 +178,7 @@ public class PromiseImpl<ResultType> implements Promise<ResultType> {
         this.resultCache = new Value<ResultType>(null);
         this.failureCache = new Value<Throwable>(null);
         this.exceptionCatchers = new LinkedList<Closure<Throwable>>();
-        this.isRequesting = false;
+        this.isRequesting = new Value<Boolean>(false);
 
     }
 
