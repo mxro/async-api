@@ -99,6 +99,21 @@ public final class Async {
         };
     }
 
+    public static final <T> ValueCallback<T> wrap(final SimpleCallback callback) {
+        return new ValueCallback<T>() {
+
+            @Override
+            public void onFailure(final Throwable t) {
+                callback.onFailure(t);
+            }
+
+            @Override
+            public void onSuccess(final T value) {
+                callback.onSuccess();
+            }
+        };
+    }
+
     public final static SimpleCallback doNothing() {
         return new SimpleCallback() {
 
