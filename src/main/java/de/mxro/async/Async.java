@@ -145,4 +145,35 @@ public final class Async {
         };
     }
 
+    /**
+     * <p>
+     * Creates a callback which needs to be called multiple times in for the
+     * specified callback to be called.
+     * 
+     * @param results
+     * @param callWhenCollected
+     * @return
+     */
+    public final static <V> ValueCallback<V> collect(final int results, final ValueCallback<List<V>> callWhenCollected) {
+
+    }
+
+    /**
+     * <p>
+     * Creates a callback which needs to be called multiple times in for the
+     * specified callback to be called.
+     * 
+     * <p>
+     * Results by individual operations should yield lists. The result is a
+     * concatenated list of all individual lists.
+     * 
+     * @param results
+     * @param callWhenCollected
+     * @return
+     */
+    public final static <V> ValueCallback<List<V>> collectAndConcat(final int results,
+            final ValueCallback<List<V>> callWhenCollected) {
+
+    }
+
 }
