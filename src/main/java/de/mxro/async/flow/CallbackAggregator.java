@@ -14,7 +14,8 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
     final ValueCallback<List<V>> callback;
 
     Value<Integer> callbacksDefined;
-    Map<Integer, V> results;
+    Map<Integer, V> resultsMap;
+    List<V> results;
     Value<Boolean> exceptionReceived;
     Throwable exception;
 
@@ -25,6 +26,10 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
 
             final int callbackIdx = callbacksDefined.get();
             callbacksDefined.set(callbackIdx + 1);
+
+            if (callbackIdx > expected - 1) {
+                throw new IllegalStateException("Too many callbacks defined.");
+            }
 
             return new ValueCallback<V>() {
 
@@ -59,5 +64,6 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
         this.exceptionReceived = new Value<Boolean>(false);
         this.callbacksDefined = new Value<Integer>(0);
         this.exception = null;
+
     }
 }
