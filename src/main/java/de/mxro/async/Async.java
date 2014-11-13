@@ -159,40 +159,4 @@ public final class Async {
         return new CallbackAggregator<V>(results, callWhenCollected);
     }
 
-    /**
-     * <p>
-     * Creates a callback which needs to be called multiple times in for the
-     * specified callback to be called.
-     * 
-     * <p>
-     * Results by individual operations should yield lists. The result is a
-     * concatenated list of all individual lists.
-     * 
-     * @param results
-     * @param callWhenCollected
-     * @return
-     */
-    public final static <V> Aggregator<List<V>> collectAndConcat(final int results,
-            final ValueCallback<List<V>> callWhenCollected) {
-        final Aggregator<List<List<V>>> agg = new CallbackAggregator(results, new ValueCallback<List<List<V>>>() {
-
-            @Override
-            public void onFailure(final Throwable t) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onSuccess(final List<List<V>> value) {
-                // TODO Auto-generated method stub
-
-            }
-
-        });
-
-
-        return 
-
-
-    }
 }
