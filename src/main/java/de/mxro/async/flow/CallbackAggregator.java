@@ -2,6 +2,7 @@ package de.mxro.async.flow;
 
 import java.util.List;
 
+import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
 
 public final class CallbackAggregator<V> {
@@ -10,7 +11,7 @@ public final class CallbackAggregator<V> {
 
     final ValueCallback<List<V>> callback;
 
-    boolean exceptionReceived;
+    Value<Boolean> exceptionReceived;
     volatile Throwable exception;
 
     public final ValueCallback<V> createCallback() {
@@ -19,11 +20,12 @@ public final class CallbackAggregator<V> {
             @Override
             public void onFailure(final Throwable t) {
                 synchronized (exceptionReceived) {
-                    if (exceptionReceived) {
+                    if (exceptionReceived.get()) {
                         throw new RuntimeException("Exception already received.", t);
                     }
 
-                    exceptionReceived = true;
+                    exceptionReceived.set(true);
+
                 }
             }
 
@@ -39,8 +41,7 @@ public final class CallbackAggregator<V> {
         this.expected = expected;
         this.callback = callback;
 
-        this.exceptionReceived = false;
+        this.exceptionReceived.set(false)
         this.exception = null;
     }
-
 }
