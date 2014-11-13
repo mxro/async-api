@@ -21,7 +21,8 @@ public final class CallbackAggregator<V> {
             public void onFailure(final Throwable t) {
                 synchronized (exceptionReceived) {
                     if (exceptionReceived.get()) {
-                        throw new RuntimeException("Exception already received.", t);
+                        throw new RuntimeException(
+                                "Another exception already received. Cannot sent exception to callback.", t);
                     }
 
                     exceptionReceived.set(true);
