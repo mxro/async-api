@@ -150,7 +150,11 @@ public final class Async {
      * <p>
      * Creates a factory for callbacks. When these callbacks are called, their
      * results are aggregated <b>in the order in which the callbacks have been
-     * created</b>/
+     * created</b>.
+     * <p>
+     * If the factory has not been called the same number of times as results
+     * are expected, the defined callback will be called when the created
+     * callbacks have been called the number of expected times.
      * 
      * @param results
      * @param callWhenCollected
