@@ -159,8 +159,18 @@ public final class Async {
         return new CallbackAggregator<V>(results, callWhenCollected);
     }
 
-    public final static <V> ValueCallback<V> embed(final ValueCallback<?> toCallback,
-            final Closure<V> onSuccess) {
+    /**
+     * <p>
+     * Embeds the closure within the provided callback.
+     * <p>
+     * Useful for cascading callbacks while avoiding to define onFailure method
+     * declarations.
+     * 
+     * @param toCallback
+     * @param onSuccess
+     * @return
+     */
+    public final static <V> ValueCallback<V> embed(final ValueCallback<?> toCallback, final Closure<V> onSuccess) {
         return new ValueCallback<V>() {
 
             @Override
