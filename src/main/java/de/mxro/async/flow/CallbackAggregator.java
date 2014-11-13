@@ -11,6 +11,7 @@ public final class CallbackAggregator<V> {
 
     final ValueCallback<List<V>> callback;
 
+    List<V> results;
     Value<Boolean> exceptionReceived;
     Throwable exception;
 
