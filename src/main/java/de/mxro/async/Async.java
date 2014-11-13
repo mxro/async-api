@@ -174,7 +174,21 @@ public final class Async {
      */
     public final static <V> ValueCallback<List<V>> collectAndConcat(final int results,
             final ValueCallback<List<V>> callWhenCollected) {
+        return new CallbackAggregator(results, new ValueCallback<List<List<V>>>() {
 
+            @Override
+            public void onFailure(final Throwable t) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onSuccess(final List<List<V>> value) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
     }
 
 }
