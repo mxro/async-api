@@ -13,12 +13,14 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
 
     final ValueCallback<List<V>> callback;
 
+    Value<Integer> callbacksDefined;
     Map<Integer, V> results;
     Value<Boolean> exceptionReceived;
     Throwable exception;
 
     @Override
     public final ValueCallback<V> createCallback() {
+
         return new ValueCallback<V>() {
 
             @Override
@@ -48,6 +50,7 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
         this.callback = callback;
 
         this.exceptionReceived = new Value<Boolean>(false);
+        this.callbacksDefined = new Value<Integer>(0);
         this.exception = null;
     }
 }
