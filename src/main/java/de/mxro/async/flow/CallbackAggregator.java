@@ -1,5 +1,7 @@
 package de.mxro.async.flow;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +65,8 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
 
         this.exceptionReceived = new Value<Boolean>(false);
         this.callbacksDefined = new Value<Integer>(0);
+        this.results = new ArrayList<V>(expected);
+        this.resultsMap = new HashMap<Integer, V>();
         this.exception = null;
 
     }
