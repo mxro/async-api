@@ -52,6 +52,14 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
                 @Override
                 public void onSuccess(final V value) {
 
+                    synchronized (resultsMap) {
+                        resultsMap.put(callbackIdx, value);
+                    }
+
+                    synchronized (results) {
+                        results.add(value);
+                    }
+
                 }
             };
         }
