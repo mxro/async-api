@@ -53,22 +53,32 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
                 @Override
                 public void onSuccess(final V value) {
 
-                    boolean call = false;
+                    boolean callWithMap = false;
                     synchronized (resultsMap) {
                         resultsMap.put(callbackIdx, value);
 
                         if (CollectionsUtils.isMapComplete(resultsMap, expected)) {
-                            call = true;
+                            callWithMap = true;
                         }
                     }
                     // so that it's out of the synchronized block.
-                    if (call) {
+                    if (callWithMap) {
                         callback.onSuccess(CollectionsUtils.toOrderedList(resultsMap));
                         return;
                     }
 
+                    boolean callWithList = false;
                     synchronized (results) {
                         results.add(value);
+
+                        if (results.size() == expected) {
+                            callWithList = true;
+                        }
+
+                    }
+                    if (callWithList) {
+                        callback.onSuccess(results);
+                        return;
                     }
 
                 }
