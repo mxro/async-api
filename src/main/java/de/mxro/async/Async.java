@@ -5,6 +5,7 @@ import java.util.List;
 import de.mxro.async.callbacks.ListCallback;
 import de.mxro.async.callbacks.SimpleCallback;
 import de.mxro.async.callbacks.ValueCallback;
+import de.mxro.async.flow.CallbackAggregator;
 import de.mxro.async.flow.CallbackMap;
 import de.mxro.async.internal.PromiseImpl;
 import de.mxro.fn.Closure;
@@ -154,8 +155,8 @@ public final class Async {
      * @param callWhenCollected
      * @return
      */
-    public final static <V> ValueCallback<V> collect(final int results, final ValueCallback<List<V>> callWhenCollected) {
-
+    public final static <V> Aggregator<V> collect(final int results, final ValueCallback<List<V>> callWhenCollected) {
+        return new CallbackAggregator<V>(results, callWhenCollected);
     }
 
     /**
