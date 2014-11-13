@@ -8,6 +8,7 @@ import java.util.Map;
 import de.mxro.async.Aggregator;
 import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
+import de.mxro.fn.collections.CollectionsUtils;
 
 public final class CallbackAggregator<V> implements Aggregator<V> {
 
@@ -52,8 +53,17 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
                 @Override
                 public void onSuccess(final V value) {
 
+                    boolean call = false;
                     synchronized (resultsMap) {
                         resultsMap.put(callbackIdx, value);
+
+                        if (CollectionsUtils.isMapComplete(resultsMap, expected)) {
+                            call = true;
+                        }
+                    }
+                    // so that it's out of the synchronized block.
+                    if (call) {
+
                     }
 
                     synchronized (results) {
