@@ -3,10 +3,11 @@ package de.mxro.async.flow;
 import java.util.List;
 import java.util.Map;
 
+import de.mxro.async.Aggregator;
 import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
 
-public final class CallbackAggregator<V> {
+public final class CallbackAggregator<V> implements Aggregator<V> {
 
     final int expected;
 
@@ -16,6 +17,7 @@ public final class CallbackAggregator<V> {
     Value<Boolean> exceptionReceived;
     Throwable exception;
 
+    @Override
     public final ValueCallback<V> createCallback() {
         return new ValueCallback<V>() {
 
