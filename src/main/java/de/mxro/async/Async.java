@@ -156,19 +156,6 @@ public final class Async {
      */
     public final static <V> ValueCallback<V> collect(final int results, final ValueCallback<List<V>> callWhenCollected) {
 
-        return new ValueCallback<V>() {
-
-            @Override
-            public void onFailure(final Throwable t) {
-
-            }
-
-            @Override
-            public void onSuccess(final V value) {
-
-            }
-        };
-
     }
 
     /**
