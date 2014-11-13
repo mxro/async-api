@@ -5,7 +5,6 @@ import java.util.List;
 import de.mxro.async.callbacks.ListCallback;
 import de.mxro.async.callbacks.SimpleCallback;
 import de.mxro.async.callbacks.ValueCallback;
-import de.mxro.async.flow.CallbackLatch;
 import de.mxro.async.flow.CallbackMap;
 import de.mxro.async.internal.PromiseImpl;
 import de.mxro.fn.Closure;
@@ -157,15 +156,15 @@ public final class Async {
      */
     public final static <V> ValueCallback<V> collect(final int results, final ValueCallback<List<V>> callWhenCollected) {
 
-        final CallbackLatch latch = new CallbackLatch(results) {
+        return new ValueCallback<V>() {
 
             @Override
-            public void onFailed(final Throwable t) {
+            public void onFailure(final Throwable t) {
 
             }
 
             @Override
-            public void onCompleted() {
+            public void onSuccess(final V value) {
 
             }
         };
