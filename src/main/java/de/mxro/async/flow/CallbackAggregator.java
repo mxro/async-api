@@ -10,4 +10,14 @@ public final class CallbackAggregator<V> {
 
     final ValueCallback<List<V>> callback;
 
+    public final ValueCallback<V> createCallback() {
+
+    }
+
+    public CallbackAggregator(final int expected, final ValueCallback<List<V>> callback) {
+        super();
+        this.expected = expected;
+        this.callback = callback;
+    }
+
 }
