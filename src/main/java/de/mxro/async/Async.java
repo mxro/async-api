@@ -159,4 +159,20 @@ public final class Async {
         return new CallbackAggregator<V>(results, callWhenCollected);
     }
 
+    public final static <V> ValueCallback<V> forwardExceptions(final ValueCallback<?> toCallback,
+            final Closure<V> onSuccess) {
+        return new ValueCallback<V>() {
+
+            @Override
+            public void onFailure(final Throwable t) {
+                toCallback.onFailure(t);
+            }
+
+            @Override
+            public void onSuccess(final V value) {
+                onSuccess.apply(value);
+            }
+        };
+    }
+
 }
