@@ -63,7 +63,8 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
                     }
                     // so that it's out of the synchronized block.
                     if (call) {
-
+                        callback.onSuccess(CollectionsUtils.toOrderedList(resultsMap));
+                        return;
                     }
 
                     synchronized (results) {
