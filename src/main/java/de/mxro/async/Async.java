@@ -172,22 +172,9 @@ public final class Async {
      * @param callWhenCollected
      * @return
      */
-    public final static <V> ValueCallback<List<V>> collectAndConcat(final int results,
+    public final static <V> Aggregator<List<V>> collectAndConcat(final int results,
             final ValueCallback<List<V>> callWhenCollected) {
-        return new ValueCallback<List<V>>() {
-
-            @Override
-            public void onFailure(final Throwable t) {
-                callWhenCollected.onFailure(t);
-            }
-
-            @Override
-            public void onSuccess(final List<V> value) {
-
-            }
-        };
-
-        new CallbackAggregator(results, new ValueCallback<List<List<V>>>() {
+        final Aggregator<List<List<V>>> agg = new CallbackAggregator(results, new ValueCallback<List<List<V>>>() {
 
             @Override
             public void onFailure(final Throwable t) {
@@ -202,6 +189,10 @@ public final class Async {
             }
 
         });
-    }
 
+
+        return 
+
+
+    }
 }
