@@ -21,27 +21,34 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
     @Override
     public final ValueCallback<V> createCallback() {
 
-        return new ValueCallback<V>() {
+        synchronized (callbacksDefined) {
 
-            @Override
-            public void onFailure(final Throwable t) {
-                synchronized (exceptionReceived) {
-                    if (exceptionReceived.get()) {
-                        throw new RuntimeException(
-                                "Another exception already received. Cannot sent exception to callback.", t);
+            final int callbackIdx = callbacksDefined.get();
+            callbacksDefined.set(callbackIdx + 1);
+
+            return new ValueCallback<V>() {
+
+                @Override
+                public void onFailure(final Throwable t) {
+                    synchronized (exceptionReceived) {
+                        if (exceptionReceived.get()) {
+                            throw new RuntimeException(
+                                    "Another exception already received. Cannot sent exception to callback.", t);
+                        }
+
+                        exceptionReceived.set(true);
+
+                        callback.onFailure(t);
                     }
-
-                    exceptionReceived.set(true);
-
-                    callback.onFailure(t);
                 }
-            }
 
-            @Override
-            public void onSuccess(final V value) {
+                @Override
+                public void onSuccess(final V value) {
 
-            }
-        };
+                }
+            };
+        }
+
     }
 
     public CallbackAggregator(final int expected, final ValueCallback<List<V>> callback) {
