@@ -159,7 +159,7 @@ public final class Async {
         return new CallbackAggregator<V>(results, callWhenCollected);
     }
 
-    public final static <V> ValueCallback<V> forwardExceptions(final ValueCallback<?> toCallback,
+    public final static <V> ValueCallback<V> embed(final ValueCallback<?> toCallback,
             final Closure<V> onSuccess) {
         return new ValueCallback<V>() {
 
