@@ -12,7 +12,7 @@ public final class CallbackAggregator<V> {
     final ValueCallback<List<V>> callback;
 
     Value<Boolean> exceptionReceived;
-    volatile Throwable exception;
+    Throwable exception;
 
     public final ValueCallback<V> createCallback() {
         return new ValueCallback<V>() {
@@ -26,6 +26,7 @@ public final class CallbackAggregator<V> {
 
                     exceptionReceived.set(true);
 
+                    callback.onFailure(t);
                 }
             }
 
@@ -41,7 +42,7 @@ public final class CallbackAggregator<V> {
         this.expected = expected;
         this.callback = callback;
 
-        this.exceptionReceived.set(false)
+        this.exceptionReceived = new Value<Boolean>(false);
         this.exception = null;
     }
 }
