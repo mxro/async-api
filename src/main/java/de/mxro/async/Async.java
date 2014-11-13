@@ -174,7 +174,20 @@ public final class Async {
      */
     public final static <V> ValueCallback<List<V>> collectAndConcat(final int results,
             final ValueCallback<List<V>> callWhenCollected) {
-        return new CallbackAggregator(results, new ValueCallback<List<List<V>>>() {
+        return new ValueCallback<List<V>>() {
+
+            @Override
+            public void onFailure(final Throwable t) {
+                callWhenCollected.onFailure(t);
+            }
+
+            @Override
+            public void onSuccess(final List<V> value) {
+
+            }
+        };
+
+        new CallbackAggregator(results, new ValueCallback<List<List<V>>>() {
 
             @Override
             public void onFailure(final Throwable t) {
