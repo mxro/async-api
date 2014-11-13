@@ -148,8 +148,9 @@ public final class Async {
 
     /**
      * <p>
-     * Creates a callback which needs to be called multiple times in for the
-     * specified callback to be called.
+     * Creates a factory for callbacks. When these callbacks are called, their
+     * results are aggregated <b>in the order in which the callbacks have been
+     * created</b>/
      * 
      * @param results
      * @param callWhenCollected
