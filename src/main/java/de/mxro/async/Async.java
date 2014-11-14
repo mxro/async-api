@@ -166,8 +166,13 @@ public final class Async {
     }
 
     /**
+     * <p>
      * Performs the provided operation on all elements of the provided list and
      * calls a callback with all results when completed.
+     * <p>
+     * Does not wait for the asynchronous result of one operation to proceed
+     * with the other. Thus if operations are implemented asynchronously, the
+     * operations will run in parallel.
      * 
      * @param elements
      * @param operation
