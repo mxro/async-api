@@ -165,6 +165,14 @@ public final class Async {
         return new CallbackAggregator<V>(results, callWhenCollected);
     }
 
+    /**
+     * Performs the provided operation on all elements of the provided list and
+     * calls a callback with all results when completed.
+     * 
+     * @param elements
+     * @param operation
+     * @param callback
+     */
     public final static <E, V> void forEach(final List<E> elements, final Closure2<E, ValueCallback<V>> operation,
             final ValueCallback<List<V>> callback) {
 
