@@ -89,6 +89,7 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
 
     public CallbackAggregator(final int expected, final ValueCallback<List<V>> callback) {
         super();
+
         this.expected = expected;
         this.callback = callback;
 
@@ -97,6 +98,11 @@ public final class CallbackAggregator<V> implements Aggregator<V> {
         this.results = new ArrayList<V>(expected);
         this.resultsMap = new HashMap<Integer, V>();
         this.exception = null;
+
+        if (expected == 0) {
+            callback.onSuccess(new ArrayList<V>(0));
+            return;
+        }
 
     }
 }
