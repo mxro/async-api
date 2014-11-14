@@ -9,6 +9,7 @@ import de.mxro.async.flow.CallbackAggregator;
 import de.mxro.async.flow.CallbackMap;
 import de.mxro.async.internal.PromiseImpl;
 import de.mxro.fn.Closure;
+import de.mxro.fn.Closure2;
 import de.mxro.fn.Success;
 
 public final class Async {
@@ -162,6 +163,13 @@ public final class Async {
      */
     public final static <V> Aggregator<V> collect(final int results, final ValueCallback<List<V>> callWhenCollected) {
         return new CallbackAggregator<V>(results, callWhenCollected);
+    }
+
+    public final static <I, V> void forEach(final List<I> elements, final Closure2<I, ValueCallback<V>> operation,
+            final ValueCallback<List<V>> callback) {
+
+        final Aggregator<V> agg = collect(elements.size(), callback);
+
     }
 
     /**
