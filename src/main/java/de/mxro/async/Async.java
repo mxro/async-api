@@ -165,10 +165,16 @@ public final class Async {
         return new CallbackAggregator<V>(results, callWhenCollected);
     }
 
-    public final static <I, V> void forEach(final List<I> elements, final Closure2<I, ValueCallback<V>> operation,
+    public final static <E, V> void forEach(final List<E> elements, final Closure2<E, ValueCallback<V>> operation,
             final ValueCallback<List<V>> callback) {
 
         final Aggregator<V> agg = collect(elements.size(), callback);
+
+        for (final E element : elements) {
+            final ValueCallback<V> itmcb = agg.createCallback();
+
+            operation.apply(element, itmcb);
+        }
 
     }
 
