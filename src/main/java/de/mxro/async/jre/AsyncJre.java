@@ -110,7 +110,7 @@ public class AsyncJre {
      *            The deferred operation to be executed.
      * @return The result of the deferred operation.
      */
-    public static final <T> T waitFor(final Deferred<T> deferred) {
+    public static final <T> T waitFor(final int timeout, final Deferred<T> deferred) {
 
         final CountDownLatch latch = new CountDownLatch(1);
         final Value<T> result = new Value<T>(null);
@@ -132,7 +132,7 @@ public class AsyncJre {
         });
 
         try {
-            latch.await(30000, TimeUnit.MILLISECONDS);
+            latch.await(timeout, TimeUnit.MILLISECONDS);
         } catch (final InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -149,4 +149,16 @@ public class AsyncJre {
 
     }
 
+    /**
+     * Executes the specified {@link Deferred} operation and blocks the calling
+     * thread until the operation is completed.
+     * 
+     * @param deferred
+     *            The deferred operation to be executed.
+     * @return The result of the deferred operation.
+     */
+    public static final <T> T waitFor(final Deferred<T> deferred) {
+        waitFor(30000, deferred)
+
+    }
 }
