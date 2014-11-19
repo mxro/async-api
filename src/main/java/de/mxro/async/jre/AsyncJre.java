@@ -158,7 +158,7 @@ public class AsyncJre {
      * @return The result of the deferred operation.
      */
     public static final <T> T waitFor(final Deferred<T> deferred) {
-        waitFor(30000, deferred)
+        return waitFor(30000, deferred);
 
     }
 }
