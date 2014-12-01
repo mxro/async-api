@@ -11,6 +11,7 @@ import de.mxro.async.internal.PromiseImpl;
 import de.mxro.fn.Closure;
 import de.mxro.fn.Closure2;
 import de.mxro.fn.Success;
+import de.mxro.fn.SuccessFail;
 
 public final class Async {
 
@@ -112,6 +113,22 @@ public final class Async {
             @Override
             public void onSuccess(final T value) {
                 callback.onSuccess();
+            }
+        };
+    }
+
+    public static final Closure<SuccessFail> wrapAsClosure(final ValueCallback<Success> callback) {
+        return new Closure<SuccessFail>() {
+
+            @Override
+            public void apply(final SuccessFail o) {
+                if (o.isFail()) {
+                    callback.onFailure(o.getException());
+                    return;
+                }
+
+                callback.onSuccess(Success.INSTANCE);
+
             }
         };
     }
