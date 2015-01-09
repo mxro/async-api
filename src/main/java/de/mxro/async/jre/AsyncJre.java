@@ -7,13 +7,13 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import de.mxro.async.Async;
-import de.mxro.async.Deferred;
 import de.mxro.async.Operation;
-import de.mxro.async.Promise;
 import de.mxro.async.Value;
 import de.mxro.async.callbacks.ListCallback;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.jre.internal.JrePromiseImpl;
+import de.mxro.async.promise.Deferred;
+import de.mxro.async.promise.Promise;
 
 /**
  * Asynchronous utilities which are only available in Oracle Java, OpenJDK and

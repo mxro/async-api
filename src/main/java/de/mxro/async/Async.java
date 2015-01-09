@@ -8,6 +8,8 @@ import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.flow.CallbackAggregator;
 import de.mxro.async.flow.CallbackMap;
 import de.mxro.async.internal.PromiseImpl;
+import de.mxro.async.promise.Deferred;
+import de.mxro.async.promise.Promise;
 import de.mxro.fn.Closure;
 import de.mxro.fn.Closure2;
 import de.mxro.fn.Success;

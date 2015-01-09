@@ -1,4 +1,4 @@
-package de.mxro.async;
+package de.mxro.async.promise;
 
 import de.mxro.fn.Closure;
 

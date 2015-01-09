@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.mxro.async.Deferred;
-import de.mxro.async.Promise;
 import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
+import de.mxro.async.promise.Deferred;
+import de.mxro.async.promise.Promise;
 import de.mxro.fn.Closure;
 
 public class PromiseImpl<ResultType> implements Promise<ResultType> {
