@@ -14,6 +14,7 @@ import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.jre.internal.JrePromiseImpl;
 import de.mxro.async.promise.Deferred;
 import de.mxro.async.promise.Promise;
+import de.mxro.async.promise.PromiseFactory;
 
 /**
  * Asynchronous utilities which are only available in Oracle Java, OpenJDK and
@@ -26,6 +27,16 @@ public class AsyncJre {
 
     public static <ResultType> Promise<ResultType> promise(final Deferred<ResultType> promise) {
         return new JrePromiseImpl<ResultType>(promise);
+    }
+
+    public static PromiseFactory promiseFactory() {
+        return new PromiseFactory() {
+
+            @Override
+            public <T> Promise<T> promise(final Deferred<T> deferred) {
+                return AsyncJre.promise(deferred);
+            }
+        };
     }
 
     public static <T> List<Object> parallel(final List<Promise<T>> promises) {
