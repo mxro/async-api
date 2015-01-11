@@ -31,7 +31,7 @@ public class AsyncJre {
         final Value<T> result = new Value<T>(null);
         final Value<Throwable> failure = new Value<Throwable>(null);
 
-        deferred.get(new ValueCallback<T>() {
+        deferred.apply(new ValueCallback<T>() {
 
             @Override
             public void onFailure(final Throwable t) {

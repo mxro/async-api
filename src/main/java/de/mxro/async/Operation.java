@@ -8,12 +8,12 @@ import de.mxro.fn.Closure2;
  * 
  * @author Max Rohde
  *
- * @param <InputType>
- * @param <OutputType>
+ * @param <ParameterType>
+ * @param <ResultType>
  */
-public interface Operation<InputType, OutputType> extends Closure2<InputType, ValueCallback<OutputType>> {
+public interface Operation<ParameterType, ResultType> extends Closure2<ParameterType, ValueCallback<ResultType>> {
 
     @Override
-    public void apply(InputType input, ValueCallback<OutputType> callback);
+    public void apply(ParameterType input, ValueCallback<ResultType> callback);
 
 }

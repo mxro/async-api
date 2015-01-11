@@ -7,6 +7,7 @@ import de.mxro.async.callbacks.SimpleCallback;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.flow.CallbackAggregator;
 import de.mxro.async.flow.CallbackMap;
+import de.mxro.async.helper.Aggregator;
 import de.mxro.fn.Closure;
 import de.mxro.fn.Closure2;
 import de.mxro.fn.Success;
@@ -31,7 +32,7 @@ public final class Async {
         final Value<ResultType> value = new Value<ResultType>(null);
         final Value<Throwable> exception = new Value<Throwable>(null);
 
-        deferred.get(new ValueCallback<ResultType>() {
+        deferred.apply(new ValueCallback<ResultType>() {
 
             @Override
             public void onFailure(final Throwable t) {

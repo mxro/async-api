@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.mxro.async.Aggregator;
 import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
+import de.mxro.async.helper.Aggregator;
 import de.mxro.fn.collections.CollectionsUtils;
 
 public final class CallbackAggregator<V> implements Aggregator<V> {
