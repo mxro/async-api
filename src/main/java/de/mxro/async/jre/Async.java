@@ -19,6 +19,7 @@ import de.mxro.async.callbacks.ValueCallback;
 public class Async extends AsyncCommon {
 
     /**
+     * <p>
      * Executes the specified {@link Operation} operation and blocks the calling
      * thread until the operation is completed.
      * 
