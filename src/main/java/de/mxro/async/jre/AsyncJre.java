@@ -14,7 +14,6 @@ import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.jre.internal.JrePromiseImpl;
 import de.mxro.async.promise.Deferred;
 import de.mxro.async.promise.Promise;
-import de.mxro.async.promise.PromiseFactory;
 
 /**
  * Asynchronous utilities which are only available in Oracle Java, OpenJDK and
@@ -25,36 +24,12 @@ import de.mxro.async.promise.PromiseFactory;
  */
 public class AsyncJre {
 
-    public static <ResultType> Promise<ResultType> promise(final Deferred<ResultType> promise) {
-        return new JrePromiseImpl<ResultType>(promise);
-    }
-
-    public static PromiseFactory promiseFactory() {
-        return new PromiseFactory() {
-
-            @Override
-            public <T> Promise<T> promise(final Deferred<T> deferred) {
-                return AsyncJre.promise(deferred);
-            }
-        };
-    }
-
     public static <T> List<Object> parallel(final List<Promise<T>> promises) {
         return parallel(promises.toArray(new Promise[0]));
     }
 
     public static <ResultType> ResultType get(final Deferred<ResultType> promise) {
         return new JrePromiseImpl<ResultType>(promise).get();
-    }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static List<Object> parallel(final Deferred... promises) {
-        final ArrayList<Promise> list = new ArrayList<Promise>(promises.length);
-        for (final Deferred ap : promises) {
-            list.add(promise(ap));
-        }
-
-        return parallel(list.toArray(new Promise[0]));
     }
 
     @SuppressWarnings("rawtypes")
