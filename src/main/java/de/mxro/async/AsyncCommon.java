@@ -13,7 +13,7 @@ import de.mxro.fn.Closure2;
 import de.mxro.fn.Success;
 import de.mxro.fn.SuccessFail;
 
-public final class Async {
+public final class AsyncCommon {
 
     /**
      * <p>
