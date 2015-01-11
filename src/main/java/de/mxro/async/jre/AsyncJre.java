@@ -3,7 +3,7 @@ package de.mxro.async.jre;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import de.mxro.async.Deferred;
+import de.mxro.async.Operation;
 import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
 
@@ -18,20 +18,19 @@ import de.mxro.async.callbacks.ValueCallback;
 public class AsyncJre {
 
     /**
-     * Executes the specified {@link Deferred} operation and blocks the calling
+     * Executes the specified {@link Operation} operation and blocks the calling
      * thread until the operation is completed.
      * 
-     * @param deferred
+     * @param operation
      *            The deferred operation to be executed.
      * @return The result of the deferred operation.
      */
-    public static final <T> T waitFor(final int timeout, final Deferred<T> deferred) {
-
+    public static final <T> T waitFor(final int timeout, final Operation<T> operation) {
         final CountDownLatch latch = new CountDownLatch(1);
         final Value<T> result = new Value<T>(null);
         final Value<Throwable> failure = new Value<Throwable>(null);
 
-        deferred.apply(new ValueCallback<T>() {
+        operation.apply(new ValueCallback<T>() {
 
             @Override
             public void onFailure(final Throwable t) {
@@ -53,7 +52,7 @@ public class AsyncJre {
         }
 
         if (latch.getCount() > 0) {
-            throw new RuntimeException("Operation not completed in timeout: " + deferred);
+            throw new RuntimeException("Operation not completed in timeout: " + operation);
         }
 
         if (failure.get() != null) {
@@ -65,15 +64,15 @@ public class AsyncJre {
     }
 
     /**
-     * Executes the specified {@link Deferred} operation and blocks the calling
+     * Executes the specified {@link Operation} operation and blocks the calling
      * thread until the operation is completed.
      * 
-     * @param deferred
+     * @param operation
      *            The deferred operation to be executed.
      * @return The result of the deferred operation.
      */
-    public static final <T> T waitFor(final Deferred<T> deferred) {
-        return waitFor(30000, deferred);
+    public static final <T> T waitFor(final Operation<T> operation) {
+        return waitFor(30000, operation);
 
     }
 }

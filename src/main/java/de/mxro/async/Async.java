@@ -17,7 +17,7 @@ public final class Async {
 
     /**
      * <p>
-     * Tries to resolve a {@link Deferred} immediately without waiting for the
+     * Tries to resolve a {@link Operation} immediately without waiting for the
      * asynchronous operation.
      * <p>
      * This is useful for operations which actually resolve in a synchronous
@@ -26,7 +26,7 @@ public final class Async {
      * @param deferred
      * @return
      */
-    public static final <ResultType> ResultType getDirty(final Deferred<ResultType> deferred) {
+    public static final <ResultType> ResultType getDirty(final Operation<ResultType> deferred) {
 
         final Value<Boolean> resolved = new Value<Boolean>(false);
         final Value<ResultType> value = new Value<ResultType>(null);
@@ -73,7 +73,7 @@ public final class Async {
      * @param callback
      */
     public static <InputType, ResultType> void map(final List<InputType> inputs,
-            final Operation<InputType, ResultType> operation, final ListCallback<ResultType> callback) {
+            final AsyncFunction<InputType, ResultType> operation, final ListCallback<ResultType> callback) {
 
         final CallbackMap<InputType, ResultType> callbackMap = new CallbackMap<InputType, ResultType>(inputs, callback);
 

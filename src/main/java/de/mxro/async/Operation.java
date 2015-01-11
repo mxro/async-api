@@ -1,19 +1,16 @@
 package de.mxro.async;
 
 import de.mxro.async.callbacks.ValueCallback;
-import de.mxro.fn.Closure2;
+import de.mxro.fn.Closure;
 
 /**
- * A base template for asynchronous operations with one parameter.
- * 
- * @author Max Rohde
+ * The definition of an asynchronous operation with no parameters.
  *
- * @param <ParameterType>
  * @param <ResultType>
  */
-public interface Operation<ParameterType, ResultType> extends Closure2<ParameterType, ValueCallback<ResultType>> {
+public interface Operation<ResultType> extends Closure<ValueCallback<ResultType>> {
 
     @Override
-    public void apply(ParameterType input, ValueCallback<ResultType> callback);
+    public void apply(ValueCallback<ResultType> callback);
 
 }
