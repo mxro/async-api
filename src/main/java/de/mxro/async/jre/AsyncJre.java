@@ -8,8 +8,9 @@ import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
 
 /**
+ * <p>
  * Asynchronous utilities which are only available in Oracle Java, OpenJDK and
- * Android (and not for GWT).
+ * Android (and not for JavaScript environments).
  * 
  * @author <a href="http://www.mxro.de">Max Rohde</a>
  *
