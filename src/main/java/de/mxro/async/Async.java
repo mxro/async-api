@@ -7,10 +7,7 @@ import de.mxro.async.callbacks.SimpleCallback;
 import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.flow.CallbackAggregator;
 import de.mxro.async.flow.CallbackMap;
-import de.mxro.async.internal.PromiseImpl;
 import de.mxro.async.promise.Deferred;
-import de.mxro.async.promise.Promise;
-import de.mxro.async.promise.PromiseFactory;
 import de.mxro.fn.Closure;
 import de.mxro.fn.Closure2;
 import de.mxro.fn.Success;
@@ -84,20 +81,6 @@ public final class Async {
             operation.apply(input, callbackMap.createCallback(input));
         }
 
-    }
-
-    public final static <ResultType> Promise<ResultType> promise(final Deferred<ResultType> promise) {
-        return new PromiseImpl<ResultType>(promise);
-    }
-
-    public static PromiseFactory promiseFactory() {
-        return new PromiseFactory() {
-
-            @Override
-            public <T> Promise<T> promise(final Deferred<T> deferred) {
-                return Async.promise(deferred);
-            }
-        };
     }
 
     public final static SimpleCallback wrap(final ValueCallback<Success> callback) {
