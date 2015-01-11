@@ -3,9 +3,9 @@ package de.mxro.async.jre;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import de.mxro.async.Deferred;
 import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
-import de.mxro.async.promise.Deferred;
 
 /**
  * Asynchronous utilities which are only available in Oracle Java, OpenJDK and

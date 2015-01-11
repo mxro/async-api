@@ -1,9 +1,9 @@
-package de.mxro.async.promise;
+package de.mxro.async;
 
 import de.mxro.async.callbacks.ValueCallback;
 
 /**
- * An operation which can be deferred for asynchronous processing.
+ * The definition of an asynchronous operation with no parameters.
  *
  * @param <ResultType>
  */
