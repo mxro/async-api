@@ -11,7 +11,7 @@ class TestWaitFor {
 	@Test
 	def void test() {
 		
-		Async.Async.waitFor([cb | cb.onSuccess(Success.INSTANCE)])
+		Async.waitFor([cb | cb.onSuccess(Success.INSTANCE)])
 		
 	}
 	

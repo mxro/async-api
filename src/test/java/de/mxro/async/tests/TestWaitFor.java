@@ -1,5 +1,9 @@
 package de.mxro.async.tests;
 
+import de.mxro.async.Operation;
+import de.mxro.async.callbacks.ValueCallback;
+import de.mxro.async.jre.Async;
+import de.mxro.fn.Success;
 import de.oehme.xtend.junit.JUnit;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.hamcrest.Matcher;
@@ -12,11 +16,12 @@ import org.junit.internal.ArrayComparisonFailure;
 public class TestWaitFor {
   @Test
   public void test() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method Async is undefined for the type TestWaitFor"
-      + "\nThe method onSuccess is undefined for the type TestWaitFor"
-      + "\nThere is no context to infer the closure\'s argument types from. Consider typing the arguments or put the closures into a typed context."
-      + "\nwaitFor cannot be resolved");
+    final Operation<Success> _function = new Operation<Success>() {
+      public void apply(final ValueCallback<Success> cb) {
+        cb.onSuccess(Success.INSTANCE);
+      }
+    };
+    Async.<Success>waitFor(_function);
   }
   
   private static void assertArrayEquals(final Object[] expecteds, final Object[] actuals) {
