@@ -3,6 +3,7 @@ package de.mxro.async.jre;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import de.mxro.async.AsyncCommon;
 import de.mxro.async.Operation;
 import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
@@ -15,7 +16,7 @@ import de.mxro.async.callbacks.ValueCallback;
  * @author <a href="http://www.mxro.de">Max Rohde</a>
  *
  */
-public class AsyncJre {
+public class Async extends AsyncCommon {
 
     /**
      * Executes the specified {@link Operation} operation and blocks the calling

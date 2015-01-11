@@ -13,7 +13,15 @@ import de.mxro.fn.Closure2;
 import de.mxro.fn.Success;
 import de.mxro.fn.SuccessFail;
 
-public final class AsyncCommon {
+/**
+ * <p>
+ * Asynchronous operations which can be applied in a Java and JavaScript
+ * environment.
+ * 
+ * @author <a href="http://www.mxro.de">Max Rohde</a>
+ *
+ */
+public class AsyncCommon {
 
     /**
      * <p>
