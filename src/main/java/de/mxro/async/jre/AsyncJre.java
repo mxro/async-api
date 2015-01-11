@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 
 import de.mxro.async.Value;
 import de.mxro.async.callbacks.ValueCallback;
-import de.mxro.async.jre.internal.JrePromiseImpl;
 import de.mxro.async.promise.Deferred;
 
 /**
@@ -16,10 +15,6 @@ import de.mxro.async.promise.Deferred;
  *
  */
 public class AsyncJre {
-
-    public static <ResultType> ResultType get(final Deferred<ResultType> promise) {
-        return new JrePromiseImpl<ResultType>(promise).get();
-    }
 
     /**
      * Executes the specified {@link Deferred} operation and blocks the calling
