@@ -58,7 +58,12 @@ public class Async extends AsyncCommon {
         }
 
         if (failure.get() != null) {
-            throw new RuntimeException("Exception while performing operation.", failure.get());
+            if (failure.get() instanceof Throwable) {
+                throw failure.get();
+            }
+            // throw new
+            // RuntimeException("Exception while performing operation.",
+            // failure.get());
         }
 
         return result.get();
