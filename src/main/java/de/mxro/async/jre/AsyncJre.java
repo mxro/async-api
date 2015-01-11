@@ -24,10 +24,6 @@ import de.mxro.async.promise.Promise;
  */
 public class AsyncJre {
 
-    public static <T> List<Object> parallel(final List<Promise<T>> promises) {
-        return parallel(promises.toArray(new Promise[0]));
-    }
-
     public static <ResultType> ResultType get(final Deferred<ResultType> promise) {
         return new JrePromiseImpl<ResultType>(promise).get();
     }
