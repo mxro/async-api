@@ -191,11 +191,13 @@ public class AsyncCommon {
             final ValueCallback<List<ResultType>> callWhenCollected) {
 
         final Operation[] operations;
-        if (!(operationsRaw instanceof List)) {
+        if (operationsRaw instanceof List) {
             operations = ((List<Operation>) operationsRaw).toArray(new Operation[0]);
-        } else {
-            throw new IllegalArgumentException("Invalid operations list type [" + operationsRaw.getClass() + "].");
-        }
+        } else if (operationsRaw instanceof Operation[]) {
+                operations = (Operation[]) operationsRaw;
+            } else {
+                throw new IllegalArgumentException("Invalid operations list type [" + operationsRaw.getClass() + "].");
+            }
 
         final Aggregator<ResultType> aggregator = collect(operations.length, callWhenCollected);
 
