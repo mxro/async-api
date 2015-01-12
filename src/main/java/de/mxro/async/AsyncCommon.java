@@ -190,11 +190,12 @@ public class AsyncCommon {
     public static <ResultType> void parallel(final Object operationsRaw,
             final ValueCallback<List<ResultType>> callWhenCollected) {
 
+        final Operation[] operations;
         if (!(operationsRaw instanceof List)) {
-            throw new IllegalArgumentException("First parameter must be of type list.");
+            operations = ((List<Operation>) operationsRaw).toArray(new Operation[0]);
+        } else {
+            throw new IllegalArgumentException("Invalid operations list type [" + operationsRaw.getClass() + "].");
         }
-
-        final Operation[] operations = ((List<Operation>) operationsRaw).toArray(new Operation[0]);
 
         final Aggregator<ResultType> aggregator = collect(operations.length, callWhenCollected);
 
