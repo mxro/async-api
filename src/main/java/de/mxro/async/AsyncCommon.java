@@ -186,10 +186,14 @@ public class AsyncCommon {
         return new CallbackAggregator<V>(results, callWhenCollected);
     }
 
-    public static <ResultType> void parallel(final List<Operation<ResultType>> operations,
+    public static <ResultType> void parallel(final Operation[] operations,
             final ValueCallback<List<ResultType>> callWhenCollected) {
 
-        collect(operations.size(), callWhenCollected);
+        final Aggregator<ResultType> aggregator = collect(operations.length, callWhenCollected);
+
+        for (final Operation op : operations) {
+            op.apply(aggregator.createCallback());
+        }
 
     }
 
