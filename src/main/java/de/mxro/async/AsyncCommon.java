@@ -186,6 +186,12 @@ public class AsyncCommon {
         return new CallbackAggregator<V>(results, callWhenCollected);
     }
 
+    public static void parallel(final Operation... operations, final ValueCallback<List<Object>> callWhenCollected) {
+
+        collect(operations.length, callWhenCollected);
+
+    }
+
     /**
      * <p>
      * Performs the provided operation on all elements of the provided list and
