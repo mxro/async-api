@@ -7,8 +7,6 @@
 	<inherits name='de.mxro.fn.Fn' />
 	<!-- Other module inherits -->
 
-
-
 	<!-- Specify the paths for translatable code -->
 	<source path=''>
 		<exclude name="**/jre/**" />
