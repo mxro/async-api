@@ -193,13 +193,14 @@ public class AsyncCommon {
 
     }
 
-    public static Operation<List<Object>> parallelOp(@SuppressWarnings("rawtypes") final List<Operation> operations,
-            final ValueCallback<List<Object>> callWhenCollected) {
+    public static <ResultType> Operation<List<ResultType>> parallelOp(
+            @SuppressWarnings("rawtypes") final List<Operation<ResultType>> operations,
+            final ValueCallback<List<ResultType>> callWhenCollected) {
 
-        return new Operation<List<Object>>() {
+        return new Operation<List<ResultType>>() {
 
             @Override
-            public void apply(final ValueCallback<List<Object>> callback) {
+            public void apply(final ValueCallback<List<ResultType>> callback) {
                 parallel(operations, callWhenCollected);
             }
         };
