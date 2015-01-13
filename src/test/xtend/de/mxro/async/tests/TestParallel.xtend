@@ -35,14 +35,15 @@ class TestParallel {
 
 	}
 
+	
 	@Test
 	def void test_with_array() {
 
-		val ops = #[
-			[ ValueCallback<String> cb |
+		val Operation<?>[] ops = #[
+			[  cb |
 				cb.onSuccess("123")
 			],
-			[ ValueCallback<String> cb |
+			[  cb |
 				cb.onSuccess("456")
 			]
 		]

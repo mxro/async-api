@@ -6,11 +6,8 @@ import de.mxro.async.callbacks.ValueCallback;
 import de.mxro.async.jre.Async;
 import de.oehme.xtend.junit.JUnit;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Test;
@@ -47,17 +44,17 @@ public class TestParallel {
   
   @Test
   public void test_with_array() {
-    final Procedure1<ValueCallback<String>> _function = new Procedure1<ValueCallback<String>>() {
-      public void apply(final ValueCallback<String> cb) {
+    final Operation<Object> _function = new Operation<Object>() {
+      public void apply(final ValueCallback<Object> cb) {
         cb.onSuccess("123");
       }
     };
-    final Procedure1<ValueCallback<String>> _function_1 = new Procedure1<ValueCallback<String>>() {
-      public void apply(final ValueCallback<String> cb) {
+    final Operation<Object> _function_1 = new Operation<Object>() {
+      public void apply(final ValueCallback<Object> cb) {
         cb.onSuccess("456");
       }
     };
-    final List<Procedure1<ValueCallback<String>>> ops = Collections.<Procedure1<ValueCallback<String>>>unmodifiableList(CollectionLiterals.<Procedure1<ValueCallback<String>>>newArrayList(_function, _function_1));
+    final Operation<?>[] ops = { _function, _function_1 };
     final Operation<List<Object>> _function_2 = new Operation<List<Object>>() {
       public void apply(final ValueCallback<List<Object>> cb) {
         AsyncCommon.<Object>parallel(ops, cb);
