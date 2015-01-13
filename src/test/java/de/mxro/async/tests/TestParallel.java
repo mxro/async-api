@@ -17,7 +17,7 @@ import org.junit.internal.ArrayComparisonFailure;
 @SuppressWarnings("all")
 public class TestParallel {
   @Test
-  public void test() {
+  public void test_with_list() {
     final ArrayList<Operation<String>> ops = new ArrayList<Operation<String>>();
     final Operation<String> _function = new Operation<String>() {
       public void apply(final ValueCallback<String> cb) {

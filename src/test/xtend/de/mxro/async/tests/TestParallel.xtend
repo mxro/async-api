@@ -11,7 +11,7 @@ import org.junit.Test
 class TestParallel {
 	
 	@Test
-	def void test() {
+	def void test_with_list() {
 		
 		val ops = new ArrayList<Operation<String>>
 		
