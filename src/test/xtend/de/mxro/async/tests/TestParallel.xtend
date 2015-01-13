@@ -2,7 +2,6 @@ package de.mxro.async.tests
 
 import de.mxro.async.AsyncCommon
 import de.mxro.async.Operation
-import de.mxro.async.callbacks.ValueCallback
 import de.mxro.async.jre.Async
 import de.oehme.xtend.junit.JUnit
 import java.util.ArrayList
