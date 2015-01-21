@@ -1,5 +1,6 @@
 package de.mxro.async.jre;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -79,5 +80,16 @@ public class Async extends AsyncCommon {
     public static final <T> T waitFor(final Operation<T> operation) {
         return waitFor(30000, operation);
 
+    }
+
+    public static <ResultType> void parallel(final Object operationsRaw) {
+        waitFor(new Operation<List<ResultType>>() {
+
+            @Override
+            public void apply(final ValueCallback<List<ResultType>> callback) {
+                AsyncCommon.parallel(operationsRaw, callback);
+            }
+
+        });
     }
 }
