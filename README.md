@@ -1,6 +1,8 @@
 async-api
 =========
 
+**IMPORTANT NOTICE**: This project has moved to [javadelight/delight-async](https://github.com/javadelight/delight-async)
+
 [![Build Status](https://travis-ci.org/mxro/async-api.svg?branch=master)](https://travis-ci.org/mxro/async-api)
 
 Asynchronous utilities for Java and GWT applications.
